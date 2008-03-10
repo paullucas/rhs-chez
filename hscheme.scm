@@ -47,7 +47,7 @@
 ;; concat :: [[a]] -> [a]
 (define concat 
   (lambda (l)
-    (foldr ++ (list) l)))
+    (foldr ++ nil l)))
 
 ;; concatMap :: (a -> [b]) -> [a] -> [b]
 (define concat-map
@@ -64,7 +64,7 @@
 (define delete-by
   (lambda (f x l)
     (if (null? l)
-	(list)
+	nil
 	(if (f x (car l))
 	    (cdr l)
 	    (cons (car l) (delete-by f x (cdr l)))))))
@@ -85,7 +85,7 @@
 (define drop-while
   (lambda (p l)
     (if (null? l)
-	(list)
+	nil
 	(if (p (car l))
 	    (drop-while p (cdr l))
 	    l))))
@@ -108,7 +108,7 @@
 (define filter
   (lambda (f l)
     (if (null? l)
-	(list)
+	nil
 	(let ((x (car l))
 	      (xs (cdr l)))
 	  (if (f x) 
@@ -161,7 +161,7 @@
     (let ((x (car l))
 	  (xs (cdr l)))
       (if (null? xs)
-	  (list)
+	  nil
 	  (cons x (init xs))))))
 
 ;; intercalate :: [a] -> [[a]] -> [a]
@@ -172,7 +172,7 @@
 ;; intersperse :: a -> [a] -> [a]
 (define intersperse
   (lambda (x l)
-    (cond ((null? l) (list))
+    (cond ((null? l) nil)
 	  ((null? (cdr l)) l)
 	  (else (cons (car l) (cons x (intersperse x (cdr l))))))))
 
@@ -204,7 +204,7 @@
 (define h:map
   (lambda (f l)
     (if (null? l) 
-	(list)
+	nil
 	(cons (f (car l)) (h:map f (cdr l))))))
 
 ;; maximum :: (Ord a) => [a] -> a
@@ -226,10 +226,14 @@
 (define nub-by
   (lambda (f l)
     (if (null? l)
-	(list)
+	nil
 	(let ((x (car l))
 	      (xs (cdr l)))
 	  (cons x (nub-by f (filter (lambda (y) (not (f x y))) xs)))))))
+
+;; nil :: [a]
+(define nil
+  (list))
 
 ;; null :: [a] -> Bool
 (define null null?)
@@ -258,26 +262,26 @@
 (define replicate
   (lambda (n x)
     (if (= n 0)
-	(list)
+	nil
 	(cons x (replicate (- n 1) x)))))
 
 ;; reverse :: [a] -> [a]
 (define reverse
   (lambda (l)
-    (foldl (flip cons) (list) l)))
+    (foldl (flip cons) nil l)))
 	 
 ;; scanl :: (a -> b -> a) -> a -> [b] -> [a]
 (define scanl
   (lambda (f q l)
     (cons q (if (null? l)
-		(list)
+		nil
 		(scanl f (f q (car l)) (cdr l))))))
 
 ;; scanl1 :: (a -> a -> a) -> [a] -> [a]
 (define scanl1
   (lambda (f l)
     (if (null? l)
-	(list)
+	nil
 	(scanl f (car l) (cdr l)))))
 
 ;; scanr :: (a -> b -> b) -> b -> [a] -> [b]
@@ -292,7 +296,7 @@
 (define scanr1
   (lambda (f l)
     (if (null? l)
-	(list)
+	nil
 	(if (null? (cdr l))
 	    l
 	    (let ((qs (scanr1 f (cdr l))))
@@ -325,22 +329,22 @@
 (define take
   (lambda (n l)
     (if (= n 0)
-	(list)
+	nil
 	(cons (car l) (take (- n 1) (cdr l))))))
 
 ;; takeWhile :: (a -> Bool) -> [a] -> [a]
 (define take-while
   (lambda (p l)
     (if (null? l)
-	(list)
+	nil
 	(if (p (car l))
 	    (cons (car l) (take-while p (cdr l)))
-	    (list)))))
+	    nil))))
 
 ;; transpose :: [[a]] -> [[a]]
 (define transpose
   (lambda (l)
-    (cond ((null? l) (list))
+    (cond ((null? l) nil)
 	  ((null? (car l)) (transpose (cdr l)))
 	  (else (let ((x (caar l))
 		      (xs (cdar l))
@@ -372,16 +376,16 @@
 ;; zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 (define zip-with
   (lambda (f a b)
-    (cond ((null? a) (list))
-	  ((null? b) (list))
+    (cond ((null? a) nil)
+	  ((null? b) nil)
 	  (else (cons (f (car a) (car b)) 
 		      (zip-with f (cdr a) (cdr b)))))))
 
 ;; zipWith3 :: (a -> b -> c -> d) -> [a] -> [b] -> [c] -> [d]
 (define zip-with3
   (lambda (f a b c)
-    (cond ((null? a) (list))
-	  ((null? b) (list))
-	  ((null? c) (list))
+    (cond ((null? a) nil)
+	  ((null? b) nil)
+	  ((null? c) nil)
 	  (else (cons (f (car a) (car b) (car c)) 
 		      (zip-with3 f (cdr a) (cdr b) (cdr c)))))))
