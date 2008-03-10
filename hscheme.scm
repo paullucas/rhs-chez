@@ -322,6 +322,11 @@
 	    (let ((qs (scanr1 f (cdr l))))
 	      (cons (f (car l) (car qs)) qs))))))
 
+;; snd :: (a, b) -> b
+(define snd
+  (lambda (v)
+    (vector-ref v 1)))
+
 ;; span :: (a -> Bool) -> [a] -> ([a],[a])
 (define span
   (lambda (p l)
