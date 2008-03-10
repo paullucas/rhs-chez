@@ -1,3 +1,9 @@
+;; (.) :: (b -> c) -> (a -> b) -> a -> c
+(define compose
+  (lambda (f g)
+    (lambda (x)
+      (f (g x)))))
+
 ;; (++) :: [a] -> [a] -> [a]
 (define ++ 
   (lambda (a b)
