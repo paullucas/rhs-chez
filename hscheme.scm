@@ -39,6 +39,11 @@
 	#f
 	(or (car l) (any (cdr l))))))
 
+;; break :: (a -> Bool) -> [a] -> ([a],[a])
+(define break
+  (lambda (p l)
+    (span (compose not p) l)))
+
 ;; concat :: [[a]] -> [a]
 (define concat 
   (lambda (l)
