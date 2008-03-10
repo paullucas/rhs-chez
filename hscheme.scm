@@ -5,28 +5,28 @@
       (f (g x)))))
 
 ;; (++) :: [a] -> [a] -> [a]
-(define ++ 
+(define ++
   (lambda (a b)
     (if (null? a)
 	b
 	(cons (head a) (++ (tail a) b)))))
 
 ;; (!!) :: [a] -> Int -> a
-(define !! 
+(define !!
   (lambda (l n)
     (if (= n 0)
 	(head l)
 	(!! (tail l) (- n 1)))))
 
 ;; all :: (a -> Bool) -> [a] -> Bool
-(define all 
+(define all
   (lambda (f l)
     (if (null? l)
 	#t
 	(and (head (f l)) (all f (tail l))))))
 
 ;; and :: [Bool] -> Bool
-(define h:and 
+(define h:and
   (lambda (l)
     (if (null? l)
 	#t
@@ -45,7 +45,7 @@
     (span (compose not p) l)))
 
 ;; concat :: [[a]] -> [a]
-(define concat 
+(define concat
   (lambda (l)
     (foldr ++ nil l)))
 
@@ -111,12 +111,12 @@
 	nil
 	(let ((x (head l))
 	      (xs (tail l)))
-	  (if (f x) 
+	  (if (f x)
 	      (cons x (filter f xs))
 	      (filter f xs))))))
 
 ;; flip :: (a -> b -> c) -> b -> a -> c
-(define flip 
+(define flip
   (lambda (f)
     (lambda (x y)
       (f y x))))
@@ -223,7 +223,7 @@
 ;; map :: (a -> b) -> [a] -> [b]
 (define h:map
   (lambda (f l)
-    (if (null? l) 
+    (if (null? l)
 	nil
 	(cons (f (head l)) (h:map f (tail l))))))
 
@@ -263,7 +263,7 @@
   odd?)
 
 ;; or :: [Bool] -> Bool
-(define h:or 
+(define h:or
   (lambda (l)
     (if (null? l)
 	#f
@@ -289,7 +289,7 @@
 (define reverse
   (lambda (l)
     (foldl (flip cons) nil l)))
-	 
+	
 ;; scanl :: (a -> b -> a) -> a -> [b] -> [a]
 (define scanl
   (lambda (f q l)
@@ -305,7 +305,7 @@
 	(scanl f (head l) (tail l)))))
 
 ;; scanr :: (a -> b -> b) -> b -> [a] -> [b]
-(define scanr 
+(define scanr
   (lambda (f q0 l)
     (if (null? l)
 	(list1 q0)
@@ -375,7 +375,7 @@
 		       (x (head e))
 		       (xs (tail e))
 		       (xss (tail l)))
-		  (cons (cons x (h:map head xss)) 
+		  (cons (cons x (h:map head xss))
 			(transpose (cons xs (map tail xss)))))))))
 
 ;; tuple1 :: a -> (a)
@@ -419,7 +419,7 @@
   (lambda (f a b)
     (cond ((null? a) nil)
 	  ((null? b) nil)
-	  (else (cons (f (head a) (head b)) 
+	  (else (cons (f (head a) (head b))
 		      (zip-with f (tail a) (tail b)))))))
 
 ;; zipWith3 :: (a -> b -> c -> d) -> [a] -> [b] -> [c] -> [d]
@@ -428,5 +428,5 @@
     (cond ((null? a) nil)
 	  ((null? b) nil)
 	  ((null? c) nil)
-	  (else (cons (f (head a) (head b) (head c)) 
+	  (else (cons (f (head a) (head b) (head c))
 		      (zip-with3 f (tail a) (tail b) (tail c)))))))
