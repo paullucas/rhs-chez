@@ -337,6 +337,17 @@
 		  (cons (cons x (h:map car xss)) 
 			(transpose (cons xs (map cdr xss)))))))))
 
+;; union :: (Eq a) => [a] -> [a] -> [a]
+(define union
+  (lambda (a b)
+    (union-by equal? a b)))
+
+;; unionBy :: (a -> a -> Bool) -> [a] -> [a] -> [a]
+(define union-by
+  (lambda (f xs ys)
+    (let ((g (lambda (x y) (delete-by f y x))))
+      (++ xs (foldl g (nub-by f ys) xs)))))
+
 ;; zip :: [a] -> [b] -> [(a, b)]
 (define zip
   (lambda (a b)
