@@ -61,11 +61,7 @@
 ;; delete :: (Eq a) => a -> [a] -> [a]
 (define delete
   (lambda (x l)
-    (if (null? l)
-	(list)
-	(if (equal? x (car l))
-	    (delete x (cdr l))
-	    (cons (car l) (delete x (cdr l)))))))
+    (delete-by equal? x l)))
 
 ;; drop :: Int -> [a] -> [a]
 (define drop
