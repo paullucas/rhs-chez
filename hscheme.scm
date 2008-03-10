@@ -223,6 +223,10 @@
 ;; null :: [a] -> Bool
 (define null null?)
 
+;; odd :: (Integral a) => a -> Bool
+(define odd
+  odd?)
+
 ;; or :: [Bool] -> Bool
 (define h:or 
   (lambda (l)
