@@ -1,9 +1,3 @@
-;; (.) :: (b -> c) -> (a -> b) -> a -> c
-(define compose
-  (lambda (f g)
-    (lambda (x)
-      (f (g x)))))
-
 ;; (++) :: [a] -> [a] -> [a]
 (define ++
   (lambda (a b)
@@ -41,6 +35,12 @@
 (define break
   (lambda (p l)
     (span (compose not p) l)))
+
+;; (.) :: (b -> c) -> (a -> b) -> a -> c
+(define compose
+  (lambda (f g)
+    (lambda (x)
+      (f (g x)))))
 
 ;; concat :: [[a]] -> [a]
 (define concat
