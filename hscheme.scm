@@ -23,7 +23,7 @@
   (lambda (f l)
     (if (null? l)
 	#t
-	(and (head (f l)) (all f (tail l))))))
+	(and (f (head l)) (all f (tail l))))))
 
 ;; and :: [Bool] -> Bool
 (define h:and
