@@ -49,6 +49,15 @@
     (lambda (_)
       x)))
 
+;; deleteBy :: (a -> a -> Bool) -> a -> [a] -> [a]
+(define delete-by
+  (lambda (f x l)
+    (if (null? l)
+	(list)
+	(if (f x (car l))
+	    (cdr l)
+	    (cons (car l) (delete-by f x (cdr l)))))))
+
 ;; delete :: (Eq a) => a -> [a] -> [a]
 (define delete
   (lambda (x l)
