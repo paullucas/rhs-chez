@@ -60,6 +60,12 @@
     (lambda (_)
       x)))
 
+;; curry :: ((a, b) -> c) -> a -> b -> c
+(define curry
+  (lambda (f)
+    (lambda (x y)
+      (f (tuple2 x y)))))
+
 ;; deleteBy :: (a -> a -> Bool) -> a -> [a] -> [a]
 (define delete-by
   (lambda (f x l)
