@@ -52,7 +52,7 @@
 ;; concatMap :: (a -> [b]) -> [a] -> [b]
 (define concat-map
   (lambda (f l)
-    (concat (h:map f l))))
+    (concat (map1 f l))))
 
 ;; const :: a -> b -> a
 (define const
@@ -223,11 +223,11 @@
 	    (lookup x (tail l))))))
 
 ;; map :: (a -> b) -> [a] -> [b]
-(define h:map
+(define map1
   (lambda (f l)
     (if (null? l)
 	nil
-	(cons (f (head l)) (h:map f (tail l))))))
+	(cons (f (head l)) (map1 f (tail l))))))
 
 ;; maximum :: (Ord a) => [a] -> a
 (define maximum
@@ -382,7 +382,7 @@
 		       (x (head e))
 		       (xs (tail e))
 		       (xss (tail l)))
-		  (cons (cons x (h:map head xss))
+		  (cons (cons x (map1 head xss))
 			(transpose (cons xs (map tail xss)))))))))
 
 ;; tuple1 :: a -> (a)
