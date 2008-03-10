@@ -196,6 +196,21 @@
 	0
 	(+ 1 (length (cdr l))))))
 
+;; list1 :: a -> [a]
+(define list1
+  (lambda (x)
+    (list x)))
+
+;; list2 :: a -> a -> [a]
+(define list2
+  (lambda (x y)
+    (list x y)))
+
+;; list3 :: a -> a -> a -> [a]
+(define list3
+  (lambda (x y z)
+    (list x y z)))
+
 ;; lookup :: (Eq a) => a -> [(a, b)] -> Maybe b
 (define lookup
   (lambda (x l)
