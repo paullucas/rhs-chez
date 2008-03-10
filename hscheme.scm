@@ -9,35 +9,35 @@
   (lambda (a b)
     (if (null? a)
 	b
-	(cons (car a) (++ (cdr a) b)))))
+	(cons (head a) (++ (tail a) b)))))
 
 ;; (!!) :: [a] -> Int -> a
 (define !! 
   (lambda (l n)
     (if (= n 0)
-	(car l)
-	(!! (cdr l) (- n 1)))))
+	(head l)
+	(!! (tail l) (- n 1)))))
 
 ;; all :: (a -> Bool) -> [a] -> Bool
 (define all 
   (lambda (f l)
     (if (null? l)
 	#t
-	(and (car (f l)) (all f (cdr l))))))
+	(and (head (f l)) (all f (tail l))))))
 
 ;; and :: [Bool] -> Bool
 (define h:and 
   (lambda (l)
     (if (null? l)
 	#t
-	(and (car l) (h:and (cdr l))))))
+	(and (head l) (h:and (tail l))))))
 
 ;; any :: (a -> Bool) -> [a] -> Bool
 (define any
   (lambda (l)
     (if (null? l)
 	#f
-	(or (car l) (any (cdr l))))))
+	(or (head l) (any (tail l))))))
 
 ;; break :: (a -> Bool) -> [a] -> ([a],[a])
 (define break
@@ -65,9 +65,9 @@
   (lambda (f x l)
     (if (null? l)
 	nil
-	(if (f x (car l))
-	    (cdr l)
-	    (cons (car l) (delete-by f x (cdr l)))))))
+	(if (f x (head l))
+	    (tail l)
+	    (cons (head l) (delete-by f x (tail l)))))))
 
 ;; delete :: (Eq a) => a -> [a] -> [a]
 (define delete
@@ -79,15 +79,15 @@
   (lambda (n l)
     (if (= 0 n)
 	l
-	(drop (- n 1) (cdr l)))))
+	(drop (- n 1) (tail l)))))
 
 ;; dropWhile :: (a -> Bool) -> [a] -> [a]
 (define drop-while
   (lambda (p l)
     (if (null? l)
 	nil
-	(if (p (car l))
-	    (drop-while p (cdr l))
+	(if (p (head l))
+	    (drop-while p (tail l))
 	    l))))
 
 ;; elem :: (Eq a) => a -> [a] -> Bool
@@ -95,9 +95,9 @@
   (lambda (x l)
     (if (null? l)
 	#f
-	(if (equal? x (car l))
+	(if (equal? x (head l))
 	    #t
-	    (elem x (cdr l))))))
+	    (elem x (tail l))))))
 
 ;; even :: (Integral a) => a -> Bool
 (define even
@@ -109,8 +109,8 @@
   (lambda (f l)
     (if (null? l)
 	nil
-	(let ((x (car l))
-	      (xs (cdr l)))
+	(let ((x (head l))
+	      (xs (tail l)))
 	  (if (f x) 
 	      (cons x (filter f xs))
 	      (filter f xs))))))
@@ -126,26 +126,26 @@
   (lambda (f z l)
     (if (null? l)
 	z
-	(foldl f (f z (car l)) (cdr l)))))
+	(foldl f (f z (head l)) (tail l)))))
 
 ;; foldl1 :: (a -> a -> a) -> [a] -> a
 (define foldl1
   (lambda (f l)
-    (foldl f (car l) (cdr l))))
+    (foldl f (head l) (tail l))))
 
 ;; foldr :: (a -> b -> b) -> b -> [a] -> b
 (define foldr
   (lambda (f z l)
     (if (null? l)
 	z
-	(f (car l) (foldr f z (cdr l))))))
+	(f (head l) (foldr f z (tail l))))))
 
 ;; foldr1 :: (a -> a -> a) -> [a] -> a
 (define foldr1
   (lambda (f l)
-    (if (null? (cdr l))
-	(car l)
-	(f (car l) (foldr1 f (cdr l))))))
+    (if (null? (tail l))
+	(head l)
+	(f (head l) (foldr1 f (tail l))))))
 
 ;; fst :: (a, b) -> a
 (define fst
@@ -163,8 +163,8 @@
 ;; init :: [a] -> [a]
 (define init
   (lambda (l)
-    (let ((x (car l))
-	  (xs (cdr l)))
+    (let ((x (head l))
+	  (xs (tail l)))
       (if (null? xs)
 	  nil
 	  (cons x (init xs))))))
@@ -178,15 +178,15 @@
 (define intersperse
   (lambda (x l)
     (cond ((null? l) nil)
-	  ((null? (cdr l)) l)
-	  (else (cons (car l) (cons x (intersperse x (cdr l))))))))
+	  ((null? (tail l)) l)
+	  (else (cons (head l) (cons x (intersperse x (tail l))))))))
 
 ;; last :: [a] -> a
 (define last
   (lambda (l)
-    (let ((xs (cdr l)))
+    (let ((xs (tail l)))
       (if (null? xs)
-	  (car l)
+	  (head l)
 	  (last xs)))))
 
 ;; length :: [a] -> Int
@@ -194,7 +194,7 @@
   (lambda (l)
     (if (null? l)
 	0
-	(+ 1 (length (cdr l))))))
+	(+ 1 (length (tail l))))))
 
 ;; list1 :: a -> [a]
 (define list1
@@ -216,16 +216,16 @@
   (lambda (x l)
     (if (null? l)
 	#f
-	(if (equal? (caar l) x)
-	    (cadar l)
-	    (lookup x (cdr l))))))
+	(if (equal? (fst (head l)) x)
+	    (snd (head l))
+	    (lookup x (tail l))))))
 
 ;; map :: (a -> b) -> [a] -> [b]
 (define h:map
   (lambda (f l)
     (if (null? l) 
 	nil
-	(cons (f (car l)) (h:map f (cdr l))))))
+	(cons (f (head l)) (h:map f (tail l))))))
 
 ;; maximum :: (Ord a) => [a] -> a
 (define maximum
@@ -247,8 +247,8 @@
   (lambda (f l)
     (if (null? l)
 	nil
-	(let ((x (car l))
-	      (xs (cdr l)))
+	(let ((x (head l))
+	      (xs (tail l)))
 	  (cons x (nub-by f (filter (lambda (y) (not (f x y))) xs)))))))
 
 ;; nil :: [a]
@@ -267,7 +267,7 @@
   (lambda (l)
     (if (null? l)
 	#f
-	(or (car l) (h:or (cdr l))))))
+	(or (head l) (h:or (tail l))))))
 
 ;; otherwise :: Bool
 (define otherwise
@@ -295,32 +295,32 @@
   (lambda (f q l)
     (cons q (if (null? l)
 		nil
-		(scanl f (f q (car l)) (cdr l))))))
+		(scanl f (f q (head l)) (tail l))))))
 
 ;; scanl1 :: (a -> a -> a) -> [a] -> [a]
 (define scanl1
   (lambda (f l)
     (if (null? l)
 	nil
-	(scanl f (car l) (cdr l)))))
+	(scanl f (head l) (tail l)))))
 
 ;; scanr :: (a -> b -> b) -> b -> [a] -> [b]
 (define scanr 
   (lambda (f q0 l)
     (if (null? l)
 	(list1 q0)
-	(let ((qs (scanr f q0 (cdr l))))
-	  (cons (f (car l) (car qs)) qs)))))
+	(let ((qs (scanr f q0 (tail l))))
+	  (cons (f (head l) (head qs)) qs)))))
 
 ;; scanr1 :: (a -> a -> a) -> [a] -> [a]
 (define scanr1
   (lambda (f l)
     (if (null? l)
 	nil
-	(if (null? (cdr l))
+	(if (null? (tail l))
 	    l
-	    (let ((qs (scanr1 f (cdr l))))
-	      (cons (f (car l) (car qs)) qs))))))
+	    (let ((qs (scanr1 f (tail l))))
+	      (cons (f (head l) (head qs)) qs))))))
 
 ;; snd :: (a, b) -> b
 (define snd
@@ -332,9 +332,9 @@
   (lambda (p l)
     (if (null? l)
 	(tuple2 nil nil)
-	(if (p (car l))
-	    (let ((r (span p (cdr l))))
-	      (tuple2 (cons (car l) (fst r)) (snd r)))
+	(if (p (head l))
+	    (let ((r (span p (tail l))))
+	      (tuple2 (cons (head l) (fst r)) (snd r)))
 	    (tuple2 nil l)))))
 
 ;; splitAt :: Int -> [a] -> ([a],[a])
@@ -355,27 +355,28 @@
   (lambda (n l)
     (if (= n 0)
 	nil
-	(cons (car l) (take (- n 1) (cdr l))))))
+	(cons (head l) (take (- n 1) (tail l))))))
 
 ;; takeWhile :: (a -> Bool) -> [a] -> [a]
 (define take-while
   (lambda (p l)
     (if (null? l)
 	nil
-	(if (p (car l))
-	    (cons (car l) (take-while p (cdr l)))
+	(if (p (head l))
+	    (cons (head l) (take-while p (tail l)))
 	    nil))))
 
 ;; transpose :: [[a]] -> [[a]]
 (define transpose
   (lambda (l)
     (cond ((null? l) nil)
-	  ((null? (car l)) (transpose (cdr l)))
-	  (else (let ((x (caar l))
-		      (xs (cdar l))
-		      (xss (cdr l)))
-		  (cons (cons x (h:map car xss)) 
-			(transpose (cons xs (map cdr xss)))))))))
+	  ((null? (head l)) (transpose (tail l)))
+	  (else (let* ((e (head l))
+		       (x (head e))
+		       (xs (tail e))
+		       (xss (tail l)))
+		  (cons (cons x (h:map head xss)) 
+			(transpose (cons xs (map tail xss)))))))))
 
 ;; tuple1 :: a -> (a)
 (define tuple1
@@ -418,8 +419,8 @@
   (lambda (f a b)
     (cond ((null? a) nil)
 	  ((null? b) nil)
-	  (else (cons (f (car a) (car b)) 
-		      (zip-with f (cdr a) (cdr b)))))))
+	  (else (cons (f (head a) (head b)) 
+		      (zip-with f (tail a) (tail b)))))))
 
 ;; zipWith3 :: (a -> b -> c -> d) -> [a] -> [b] -> [c] -> [d]
 (define zip-with3
@@ -427,5 +428,5 @@
     (cond ((null? a) nil)
 	  ((null? b) nil)
 	  ((null? c) nil)
-	  (else (cons (f (car a) (car b) (car c)) 
-		      (zip-with3 f (cdr a) (cdr b) (cdr c)))))))
+	  (else (cons (f (head a) (head b) (head c)) 
+		      (zip-with3 f (tail a) (tail b) (tail c)))))))
