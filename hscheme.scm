@@ -26,11 +26,9 @@
 	(and (f (head l)) (all f (tail l))))))
 
 ;; and :: [Bool] -> Bool
-(define h:and
+(define all-true
   (lambda (l)
-    (if (null? l)
-	#t
-	(and (head l) (h:and (tail l))))))
+    (foldr and #t l)))
 
 ;; any :: (a -> Bool) -> [a] -> Bool
 (define any
