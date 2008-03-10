@@ -257,6 +257,11 @@
 (define nil
   (list))
 
+;; notElem :: (Eq a) => a -> [a] -> Bool
+(define not-elem
+  (lambda (x l)
+    (all (lambda (y) (not (equal? x y))) l)))
+
 ;; null :: [a] -> Bool
 (define null null?)
 
