@@ -153,6 +153,18 @@
 	  (list)
 	  (cons x (init xs))))))
 
+;; intercalate :: [a] -> [[a]] -> [a]
+(define intercalate
+  (lambda (xs xss)
+    (concat (intersperse xs xss))))
+
+;; intersperse :: a -> [a] -> [a]
+(define intersperse
+  (lambda (x l)
+    (cond ((null? l) (list))
+	  ((null? (cdr l)) l)
+	  (else (cons (car l) (cons x (intersperse x (cdr l))))))))
+
 ;; last :: [a] -> a
 (define last
   (lambda (l)
