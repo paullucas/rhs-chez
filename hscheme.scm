@@ -331,16 +331,16 @@
 (define span
   (lambda (p l)
     (if (null? l)
-	(list (list) (list))
+	(tuple2 nil nil)
 	(if (p (car l))
 	    (let ((r (span p (cdr l))))
-	      (list (cons (car l) (car r) (cadr r))))
-	    (list (list) (cdr l))))))
+	      (tuple2 (cons (car l) (fst r)) (snd r)))
+	    (tuple2 nil l)))))
 
 ;; splitAt :: Int -> [a] -> ([a],[a])
 (define split-at
   (lambda (n l)
-    (list (take n l) (drop n l))))
+    (tuple2 (take n l) (drop n l))))
 
 ;; sum :: (Num a) => [a] -> a
 (define sum
@@ -377,6 +377,21 @@
 		  (cons (cons x (h:map car xss)) 
 			(transpose (cons xs (map cdr xss)))))))))
 
+;; tuple1 :: a -> (a)
+(define tuple1
+  (lambda (x)
+    (vector x)))
+
+;; tuple2 :: a -> b -> (a, b)
+(define tuple2
+  (lambda (x y)
+    (vector x y)))
+
+;; tuple3 :: a -> b -> c -> (a, b, c)
+(define tuple3
+  (lambda (x y z)
+    (vector x y z)))
+
 ;; union :: (Eq a) => [a] -> [a] -> [a]
 (define union
   (lambda (a b)
@@ -391,12 +406,12 @@
 ;; zip :: [a] -> [b] -> [(a, b)]
 (define zip
   (lambda (a b)
-    (zip-with list a b)))0
+    (zip-with tuple2 a b)))0
 
 ;; zip2 :: [a] -> [b] -> [c] -> [(a, b, c)]
 (define zip3
   (lambda (a b c)
-    (zip-with list a b c)))
+    (zip-with tuple3 a b c)))
 
 ;; zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 (define zip-with
