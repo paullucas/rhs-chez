@@ -308,7 +308,7 @@
 (define scanr 
   (lambda (f q0 l)
     (if (null? l)
-	(list q0)
+	(list1 q0)
 	(let ((qs (scanr f q0 (cdr l))))
 	  (cons (f (car l) (car qs)) qs)))))
 
