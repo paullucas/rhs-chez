@@ -1,10 +1,3 @@
-;; (++) :: [a] -> [a] -> [a]
-(define ++
-  (lambda (a b)
-    (if (null? a)
-	b
-	(cons (head a) (++ (tail a) b)))))
-
 ;; (!!) :: [a] -> Int -> a
 (define !!
   (lambda (l n)
@@ -31,6 +24,13 @@
 	#f
 	(or (f (head l)) (any f (tail l))))))
 
+;; (++) :: [a] -> [a] -> [a]
+(define append2
+  (lambda (a b)
+    (if (null? a)
+	b
+	(cons (head a) (append2 (tail a) b)))))
+
 ;; break :: (a -> Bool) -> [a] -> ([a],[a])
 (define break
   (lambda (p l)
@@ -45,7 +45,7 @@
 ;; concat :: [[a]] -> [a]
 (define concat
   (lambda (l)
-    (foldr ++ nil l)))
+    (foldr append2 nil l)))
 
 ;; concatMap :: (a -> [b]) -> [a] -> [b]
 (define concat-map
@@ -411,7 +411,7 @@
 (define union-by
   (lambda (f xs ys)
     (let ((g (lambda (x y) (delete-by f y x))))
-      (++ xs (foldl g (nub-by f ys) xs)))))
+      (append2 xs (foldl g (nub-by f ys) xs)))))
 
 ;; zip :: [a] -> [b] -> [(a, b)]
 (define zip
