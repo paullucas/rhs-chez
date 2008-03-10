@@ -99,11 +99,7 @@
 ;; elem :: (Eq a) => a -> [a] -> Bool
 (define elem
   (lambda (x l)
-    (if (null? l)
-	#f
-	(if (equal? x (head l))
-	    #t
-	    (elem x (tail l))))))
+    (any (lambda (y) (equal? x y)) l)))
 
 ;; even :: (Integral a) => a -> Bool
 (define even
