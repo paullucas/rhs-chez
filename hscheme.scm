@@ -400,6 +400,12 @@
   (lambda (x y z)
     (vector x y z)))
 
+;; uncurry :: (a -> b -> c) -> (a, b) -> c
+(define uncurry
+  (lambda (f)
+    (lambda (xy)
+      (f (fst xy) (snd xy)))))
+
 ;; union :: (Eq a) => [a] -> [a] -> [a]
 (define union
   (lambda (a b)
