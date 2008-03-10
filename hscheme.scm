@@ -1,9 +1,5 @@
 ;; (!!) :: [a] -> Int -> a
-(define !!
-  (lambda (l n)
-    (if (= n 0)
-	(head l)
-	(!! (tail l) (- n 1)))))
+;; list-ref
 
 ;; all :: (a -> Bool) -> [a] -> Bool
 (define all
