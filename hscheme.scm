@@ -206,6 +206,20 @@
   (lambda (l)
     (foldl1 min l)))
 
+;; nub :: (Eq a) => [a] -> [a]
+(define nub
+  (lambda (l)
+    (nub-by equal? l)))
+
+;; nubBy :: (a -> a -> Bool) -> [a] -> [a]
+(define nub-by
+  (lambda (f l)
+    (if (null? l)
+	(list)
+	(let ((x (car l))
+	      (xs (cdr l)))
+	  (cons x (nub-by f (filter (lambda (y) (not (f x y))) xs)))))))
+
 ;; null :: [a] -> Bool
 (define null null?)
 
