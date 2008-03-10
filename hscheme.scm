@@ -234,6 +234,15 @@
 	#f
 	(or (car l) (h:or (cdr l))))))
 
+;; otherwise :: Bool
+(define otherwise
+  #t)
+
+;; product :: (Num a) => [a] -> a
+(define product
+  (lambda (l)
+    (foldl * 1 l)))
+
 ;; replicate :: Int -> a -> [a]
 (define replicate
   (lambda (n x)
