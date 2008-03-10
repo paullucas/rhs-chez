@@ -34,10 +34,10 @@
 
 ;; any :: (a -> Bool) -> [a] -> Bool
 (define any
-  (lambda (l)
+  (lambda (f l)
     (if (null? l)
 	#f
-	(or (head l) (any (tail l))))))
+	(or (f (head l)) (any f (tail l))))))
 
 ;; break :: (a -> Bool) -> [a] -> ([a],[a])
 (define break
