@@ -147,6 +147,11 @@
 	(car l)
 	(f (car l) (foldr1 f (cdr l))))))
 
+;; fst :: (a, b) -> a
+(define fst
+  (lambda (v)
+    (vector-ref v 0)))
+
 ;; head :: [a] -> a
 (define head car)
 
