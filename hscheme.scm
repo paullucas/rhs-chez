@@ -268,11 +268,9 @@
   odd?)
 
 ;; or :: [Bool] -> Bool
-(define h:or
+(define any-true
   (lambda (l)
-    (if (null? l)
-	#f
-	(or (head l) (h:or (tail l))))))
+    (foldr or #f l)))
 
 ;; otherwise :: Bool
 (define otherwise
