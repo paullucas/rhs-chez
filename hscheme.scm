@@ -435,6 +435,11 @@
     (lambda (xy)
       (f (fst xy) (snd xy)))))
 
+;; undefined :: a
+(define undefined
+  (lambda ()
+    (head nil)))
+
 ;; union :: (Eq a) => [a] -> [a] -> [a]
 (define union
   (lambda (a b)
