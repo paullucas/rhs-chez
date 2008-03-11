@@ -88,9 +88,9 @@
 ;; drop :: Int -> [a] -> [a]
 (define drop
   (lambda (n l)
-    (if (= 0 n)
-	l
-	(drop (- n 1) (tail l)))))
+    (cond ((<= n 0) l)
+	  ((null? l) nil)
+	  (else (drop (- n 1) (tail l))))))
 
 ;; dropWhile :: (a -> Bool) -> [a] -> [a]
 (define drop-while
