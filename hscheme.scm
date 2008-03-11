@@ -401,9 +401,9 @@
 ;; take :: Int -> [a] -> [a]
 (define take
   (lambda (n l)
-    (if (= n 0)
-	nil
-	(cons (head l) (take (- n 1) (tail l))))))
+    (cond ((<= n 0) nil)
+	  ((null? l) nil)
+	  (else (cons (head l) (take (- n 1) (tail l)))))))
 
 ;; takeWhile :: (a -> Bool) -> [a] -> [a]
 (define take-while
