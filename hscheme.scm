@@ -311,6 +311,18 @@
 (define otherwise
   #t)
 
+;; partition :: (a -> Bool) -> [a] -> ([a],[a])
+(define partition 
+  (let ((select (lambda (p) 
+		  (lambda (x tf)
+		    (let ((t (fst tf))
+			  (f (snd tf)))
+		      (if (p x) 
+			  (tuple2 (cons x t) f)
+			  (tuple2 t (cons x f))))))))
+    (lambda (p xs)
+      (foldr (select p) (tuple2 nil nil) xs))))
+
 ;; pred :: a -> a
 (define pred
   (lambda (x)
