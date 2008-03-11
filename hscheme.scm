@@ -11,7 +11,9 @@
 ;; and :: [Bool] -> Bool
 (define all-true
   (lambda (l)
-    (foldr and #t l)))
+    (if (null? l)
+	#t
+	(and (head l) (all-true (tail l))))))
 
 ;; any :: (a -> Bool) -> [a] -> Bool
 (define any
