@@ -429,14 +429,20 @@
 ;; transpose :: [[a]] -> [[a]]
 (define transpose
   (lambda (l)
-    (cond ((null? l) nil)
-	  ((null? (head l)) (transpose (tail l)))
-	  (else (let* ((e (head l))
-		       (x (head e))
-		       (xs (tail e))
-		       (xss (tail l)))
-		  (cons (cons x (map1 head xss))
-			(transpose (cons xs (map tail xss)))))))))
+    (let ((protect
+	   (lambda (f)
+	     (lambda (x)
+	       (if (null? x)
+		   nil
+		   (f x))))))
+      (cond ((null? l) nil)
+	    ((null? (head l)) (transpose (tail l)))
+	    (else (let* ((e (head l))
+			 (x (head e))
+			 (xs (tail e))
+			 (xss (tail l)))
+		    (cons (cons x (filter (compose not null?) (map1 (protect head) xss)))
+			  (transpose (cons xs (map (protect tail) xss))))))))))
 
 ;; tuple1 :: a -> (a)
 (define tuple1
