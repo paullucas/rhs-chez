@@ -452,6 +452,17 @@
   (lambda ()
     (head nil)))
 
+;; unfoldr :: (b -> Maybe (a, b)) -> b -> [a]
+(define unfoldr
+  (lambda (f x)
+    (let ((r (f x)))
+      (if r
+	  (cons (fst r) (unfoldr f (snd r)))
+	  nil))))
+
+;; (unfoldr (lambda (b) (if (= b 0) #f (tuple2 b (- b 1)))) 10)
+;; => (10 9 8 7 6 5 4 3 2 1)
+
 ;; union :: (Eq a) => [a] -> [a] -> [a]
 (define union
   (lambda (a b)
