@@ -106,6 +106,16 @@
   (lambda (x l)
     (any (lambda (y) (equal? x y)) l)))
 
+;; elemIndex :: Eq a => a -> [a] -> Maybe Int
+(define elem-index
+  (lambda (x l)
+    (find-index (lambda (y) (equal? x y)) l)))
+
+;; elemIndices :: Eq a => a -> [a] -> [Int]
+(define elem-indices
+  (lambda (x l)
+    (find-indices (lambda (y) (equal? x y)) l)))
+
 ;; enumFromThenTo :: a -> a -> a -> [a]
 (define enum-from-then-to
   (lambda (i j k)
