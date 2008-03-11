@@ -34,6 +34,15 @@
   (lambda (p l)
     (span (compose not p) l)))
 
+;; compare :: (Ord a) => a -> a -> Ordering 
+(define GT 'GT)
+(define LT 'LT)
+(define EQ 'EQ)
+(define (compare x y)
+  (cond ((> x y) GT)
+	((< x y) LT)
+	(else EQ)))
+
 ;; (.) :: (b -> c) -> (a -> b) -> a -> c
 (define compose
   (lambda (f g)
