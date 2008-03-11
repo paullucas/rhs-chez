@@ -596,7 +596,7 @@
 ;; zip :: [a] -> [b] -> [(a, b)]
 (define zip
   (lambda (a b)
-    (zip-with tuple2 a b)))0
+    (zip-with tuple2 a b)))
 
 ;; zip2 :: [a] -> [b] -> [c] -> [(a, b, c)]
 (define zip3
