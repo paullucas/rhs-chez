@@ -299,6 +299,11 @@
 (define otherwise
   #t)
 
+;; pred :: a -> a
+(define pred
+  (lambda (x)
+    (- x 1)))
+
 ;; product :: (Num a) => [a] -> a
 (define product
   (lambda (l)
