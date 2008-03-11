@@ -133,6 +133,38 @@
   (lambda (n)
     (even? n)))
 
+;; find :: (a -> Bool) -> [a] -> Maybe a
+(define find
+  (lambda (f l)
+    (if (null? l)
+	#f
+	(if (f (head l))
+	    (head l)
+	    (find f (tail l))))))
+
+
+;; findIndex :: (a -> Bool) -> [a] -> Maybe Int
+(define find-index
+  (letrec ((g (lambda (f l n)
+		(if (null? l)
+		    #f
+		    (if (f (head l))
+			n
+			(g f (tail l) (+ n 1)))))))
+    (lambda (f l)
+      (g f l 0))))
+
+;; findIndices :: (a -> Bool) -> [a] -> [Int]
+(define find-indices
+  (letrec ((g (lambda (f l n)
+		(if (null? l)
+		    nil
+		    (if (f (head l))
+			(cons n (g f (tail l) (+ n 1)))
+			(g f (tail l) (+ n 1)))))))
+    (lambda (f l)
+      (g f l 0))))
+
 ;; filter :: (a -> Bool) -> [a] -> [a]
 (define filter
   (lambda (f l)
