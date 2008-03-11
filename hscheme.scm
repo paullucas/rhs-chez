@@ -373,6 +373,11 @@
   (lambda (n l)
     (tuple2 (take n l) (drop n l))))
 
+;; succ :: a -> a
+(define succ
+  (lambda (x)
+    (+ x 1)))
+
 ;; sum :: (Num a) => [a] -> a
 (define sum
   (lambda (l)
