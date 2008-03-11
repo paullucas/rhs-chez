@@ -176,6 +176,20 @@
 	  nil
 	  (cons x (init xs))))))
 
+;; insert :: Ord a => a -> [a] -> [a]
+(define insert 
+  (lambda (e l)
+    (insert-by compare e l)))
+
+;; insertBy :: (a -> a -> Ordering) -> a -> [a] -> [a]
+(define insert-by
+  (lambda (f x l)
+    (if (null? l)
+	(list1 x)
+	(if (equal? (f x (head l)) GT)
+	    (cons (head l) (insert-by f x (tail l)))
+	    (cons x l)))))
+
 ;; intercalate :: [a] -> [[a]] -> [a]
 (define intercalate
   (lambda (xs xss)
