@@ -5,29 +5,29 @@
 (define all
   (lambda (f l)
     (if (null? l)
-	#t
-	(and (f (head l)) (all f (tail l))))))
+        #t
+        (and (f (head l)) (all f (tail l))))))
 
 ;; and :: [Bool] -> Bool
 (define all-true
   (lambda (l)
     (if (null? l)
-	#t
-	(and (head l) (all-true (tail l))))))
+        #t
+        (and (head l) (all-true (tail l))))))
 
 ;; any :: (a -> Bool) -> [a] -> Bool
 (define any
   (lambda (f l)
     (if (null? l)
-	#f
-	(or (f (head l)) (any f (tail l))))))
+        #f
+        (or (f (head l)) (any f (tail l))))))
 
 ;; (++) :: [a] -> [a] -> [a]
 (define append2
   (lambda (a b)
     (if (null? a)
-	b
-	(cons (head a) (append2 (tail a) b)))))
+        b
+        (cons (head a) (append2 (tail a) b)))))
 
 ;; break :: (a -> Bool) -> [a] -> ([a],[a])
 (define break
@@ -38,10 +38,11 @@
 (define GT 'GT)
 (define LT 'LT)
 (define EQ 'EQ)
-(define (compare x y)
-  (cond ((> x y) GT)
-	((< x y) LT)
-	(else EQ)))
+(define compare
+  (lambda (x y)
+    (cond ((> x y) GT)
+          ((< x y) LT)
+          (else EQ))))
 
 ;; (.) :: (b -> c) -> (a -> b) -> a -> c
 (define compose
@@ -75,10 +76,10 @@
 (define delete-by
   (lambda (f x l)
     (if (null? l)
-	nil
-	(if (f x (head l))
-	    (tail l)
-	    (cons (head l) (delete-by f x (tail l)))))))
+        nil
+        (if (f x (head l))
+            (tail l)
+            (cons (head l) (delete-by f x (tail l)))))))
 
 ;; delete :: (Eq a) => a -> [a] -> [a]
 (define delete
@@ -89,17 +90,17 @@
 (define drop
   (lambda (n l)
     (cond ((<= n 0) l)
-	  ((null? l) nil)
-	  (else (drop (- n 1) (tail l))))))
+          ((null? l) nil)
+          (else (drop (- n 1) (tail l))))))
 
 ;; dropWhile :: (a -> Bool) -> [a] -> [a]
 (define drop-while
   (lambda (p l)
     (if (null? l)
-	nil
-	(if (p (head l))
-	    (drop-while p (tail l))
-	    l))))
+        nil
+        (if (p (head l))
+            (drop-while p (tail l))
+            l))))
 
 ;; elem :: (Eq a) => a -> [a] -> Bool
 (define elem
@@ -120,8 +121,8 @@
 (define enum-from-then-to
   (lambda (i j k)
     (cond ((= i k) (list1 k))
-	  ((> i k) nil)
-	  (else (cons i (enum-from-then-to j (+ j (- j i)) k))))))
+          ((> i k) nil)
+          (else (cons i (enum-from-then-to j (+ j (- j i)) k))))))
 
 ;; enumFromTo :: a -> a -> [a]
 (define enum-from-to
@@ -137,31 +138,31 @@
 (define find
   (lambda (f l)
     (if (null? l)
-	#f
-	(if (f (head l))
-	    (head l)
-	    (find f (tail l))))))
+        #f
+        (if (f (head l))
+            (head l)
+            (find f (tail l))))))
 
 
 ;; findIndex :: (a -> Bool) -> [a] -> Maybe Int
 (define find-index
   (letrec ((g (lambda (f l n)
-		(if (null? l)
-		    #f
-		    (if (f (head l))
-			n
-			(g f (tail l) (+ n 1)))))))
+                (if (null? l)
+                    #f
+                    (if (f (head l))
+                        n
+                        (g f (tail l) (+ n 1)))))))
     (lambda (f l)
       (g f l 0))))
 
 ;; findIndices :: (a -> Bool) -> [a] -> [Int]
 (define find-indices
   (letrec ((g (lambda (f l n)
-		(if (null? l)
-		    nil
-		    (if (f (head l))
-			(cons n (g f (tail l) (+ n 1)))
-			(g f (tail l) (+ n 1)))))))
+                (if (null? l)
+                    nil
+                    (if (f (head l))
+                        (cons n (g f (tail l) (+ n 1)))
+                        (g f (tail l) (+ n 1)))))))
     (lambda (f l)
       (g f l 0))))
 
@@ -169,12 +170,12 @@
 (define filter
   (lambda (f l)
     (if (null? l)
-	nil
-	(let ((x (head l))
-	      (xs (tail l)))
-	  (if (f x)
-	      (cons x (filter f xs))
-	      (filter f xs))))))
+        nil
+        (let ((x (head l))
+              (xs (tail l)))
+          (if (f x)
+              (cons x (filter f xs))
+              (filter f xs))))))
 
 ;; flip :: (a -> b -> c) -> b -> a -> c
 (define flip
@@ -186,8 +187,8 @@
 (define foldl
   (lambda (f z l)
     (if (null? l)
-	z
-	(foldl f (f z (head l)) (tail l)))))
+        z
+        (foldl f (f z (head l)) (tail l)))))
 
 ;; foldl1 :: (a -> a -> a) -> [a] -> a
 (define foldl1
@@ -198,15 +199,15 @@
 (define foldr
   (lambda (f z l)
     (if (null? l)
-	z
-	(f (head l) (foldr f z (tail l))))))
+        z
+        (f (head l) (foldr f z (tail l))))))
 
 ;; foldr1 :: (a -> a -> a) -> [a] -> a
 (define foldr1
   (lambda (f l)
     (if (null? (tail l))
-	(head l)
-	(f (head l) (foldr1 f (tail l))))))
+        (head l)
+        (f (head l) (foldr1 f (tail l))))))
 
 ;; fst :: (a, b) -> a
 (define fst
@@ -225,10 +226,10 @@
 (define init
   (lambda (l)
     (let ((x (head l))
-	  (xs (tail l)))
+          (xs (tail l)))
       (if (null? xs)
-	  nil
-	  (cons x (init xs))))))
+          nil
+          (cons x (init xs))))))
 
 ;; insert :: Ord a => a -> [a] -> [a]
 (define insert 
@@ -239,10 +240,10 @@
 (define insert-by
   (lambda (f x l)
     (if (null? l)
-	(list1 x)
-	(if (equal? (f x (head l)) GT)
-	    (cons (head l) (insert-by f x (tail l)))
-	    (cons x l)))))
+        (list1 x)
+        (if (equal? (f x (head l)) GT)
+            (cons (head l) (insert-by f x (tail l)))
+            (cons x l)))))
 
 ;; intercalate :: [a] -> [[a]] -> [a]
 (define intercalate
@@ -253,24 +254,24 @@
 (define intersperse
   (lambda (x l)
     (cond ((null? l) nil)
-	  ((null? (tail l)) l)
-	  (else (cons (head l) (cons x (intersperse x (tail l))))))))
+          ((null? (tail l)) l)
+          (else (cons (head l) (cons x (intersperse x (tail l))))))))
 
 ;; isInfixOf :: (Eq a) => [a] -> [a] -> Bool
 (define is-infix-of
   (lambda (p q)
     (cond ((null? p) #t)
-	  ((null? q) #f)
-	  (else (or (is-prefix-of p q)
-		    (is-infix-of p (tail q)))))))
+          ((null? q) #f)
+          (else (or (is-prefix-of p q)
+                    (is-infix-of p (tail q)))))))
 
 ;; isPrefixOf :: (Eq a) => [a] -> [a] -> Bool
 (define is-prefix-of
   (lambda (p q)
     (cond ((null? p) #t)
-	  ((null? q) #f)
-	  (else (and (equal? (head p) (head q)) 
-		     (is-prefix-of (tail p) (tail q)))))))
+          ((null? q) #f)
+          (else (and (equal? (head p) (head q)) 
+                     (is-prefix-of (tail p) (tail q)))))))
 
 ;; isSuffixOf :: (Eq a) => [a] -> [a] -> Bool
 (define is-suffix-of
@@ -282,8 +283,8 @@
   (lambda (l)
     (let ((xs (tail l)))
       (if (null? xs)
-	  (head l)
-	  (last xs)))))
+          (head l)
+          (last xs)))))
 
 ;; length :: [a] -> Int
 (define length
@@ -311,32 +312,32 @@
 (define lookup
   (lambda (x l)
     (if (null? l)
-	#f
-	(if (equal? (fst (head l)) x)
-	    (snd (head l))
-	    (lookup x (tail l))))))
+        #f
+        (if (equal? (fst (head l)) x)
+            (snd (head l))
+            (lookup x (tail l))))))
 
 ;; map :: (a -> b) -> [a] -> [b]
 (define map1
   (lambda (f l)
     (if (null? l)
-	nil
-	(cons (f (head l)) (map1 f (tail l))))))
+        nil
+        (cons (f (head l)) (map1 f (tail l))))))
 
 ;; mapAccumL :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
 (define map-accum-l 
   (lambda (f s l)
     (if (null? l) 
-	(tuple2 s nil)
-	(let* ((x (head l))
-	       (xs (tail l))
-	       (s_y (f s x))
-	       (s_ (fst s_y))
-	       (y (snd s_y))
-	       (s__ys (map-accum-l f s_ xs))
-	       (s__ (fst s__ys))
-	       (ys (snd s__ys)))
-	  (tuple2 s__ (cons y ys))))))
+        (tuple2 s nil)
+        (let* ((x (head l))
+               (xs (tail l))
+               (s_y (f s x))
+               (s_ (fst s_y))
+               (y (snd s_y))
+               (s__ys (map-accum-l f s_ xs))
+               (s__ (fst s__ys))
+               (ys (snd s__ys)))
+          (tuple2 s__ (cons y ys))))))
 
 ;; (map-accum-l (lambda (x y) (tuple2 (* x 3) (* y 5))) 3 '(1 2 3 4 5))
 ;; => #(729 (5 10 15 20 25))
@@ -345,16 +346,16 @@
 (define map-accum-r
   (lambda (f s l)
     (if (null? l) 
-	(tuple2 s nil)
-	(let* ((x (head l))
-	       (xs (tail l))
-	       (s_ys (map-accum-r f s xs))
-	       (s_ (fst s_ys))
-	       (ys (snd s_ys))
-	       (s__y (f s_ x))
-	       (s__ (fst s__y))
-	       (y (snd s__y)))
-	  (tuple2 s__ (cons y ys))))))
+        (tuple2 s nil)
+        (let* ((x (head l))
+               (xs (tail l))
+               (s_ys (map-accum-r f s xs))
+               (s_ (fst s_ys))
+               (ys (snd s_ys))
+               (s__y (f s_ x))
+               (s__ (fst s__y))
+               (y (snd s__y)))
+          (tuple2 s__ (cons y ys))))))
 
 ;; maximum :: (Ord a) => [a] -> a
 (define maximum
@@ -375,10 +376,10 @@
 (define nub-by
   (lambda (f l)
     (if (null? l)
-	nil
-	(let ((x (head l))
-	      (xs (tail l)))
-	  (cons x (nub-by f (filter (lambda (y) (not (f x y))) xs)))))))
+        nil
+        (let ((x (head l))
+              (xs (tail l)))
+          (cons x (nub-by f (filter (lambda (y) (not (f x y))) xs)))))))
 
 ;; nil :: [a]
 (define nil
@@ -400,8 +401,8 @@
 (define any-true
   (lambda (l)
     (if (null? l)
-	#f
-	(or (head l) (any-true (tail l))))))
+        #f
+        (or (head l) (any-true (tail l))))))
 
 ;; otherwise :: Bool
 (define otherwise
@@ -410,12 +411,12 @@
 ;; partition :: (a -> Bool) -> [a] -> ([a],[a])
 (define partition 
   (let ((select (lambda (p) 
-		  (lambda (x tf)
-		    (let ((t (fst tf))
-			  (f (snd tf)))
-		      (if (p x) 
-			  (tuple2 (cons x t) f)
-			  (tuple2 t (cons x f))))))))
+                  (lambda (x tf)
+                    (let ((t (fst tf))
+                          (f (snd tf)))
+                      (if (p x) 
+                          (tuple2 (cons x t) f)
+                          (tuple2 t (cons x f))))))))
     (lambda (p xs)
       (foldr (select p) (tuple2 nil nil) xs))))
 
@@ -433,8 +434,8 @@
 (define replicate
   (lambda (n x)
     (if (= n 0)
-	nil
-	(cons x (replicate (- n 1) x)))))
+        nil
+        (cons x (replicate (- n 1) x)))))
 
 ;; reverse :: [a] -> [a]
 (define reverse
@@ -445,33 +446,33 @@
 (define scanl
   (lambda (f q l)
     (cons q (if (null? l)
-		nil
-		(scanl f (f q (head l)) (tail l))))))
+                nil
+                (scanl f (f q (head l)) (tail l))))))
 
 ;; scanl1 :: (a -> a -> a) -> [a] -> [a]
 (define scanl1
   (lambda (f l)
     (if (null? l)
-	nil
-	(scanl f (head l) (tail l)))))
+        nil
+        (scanl f (head l) (tail l)))))
 
 ;; scanr :: (a -> b -> b) -> b -> [a] -> [b]
 (define scanr
   (lambda (f q0 l)
     (if (null? l)
-	(list1 q0)
-	(let ((qs (scanr f q0 (tail l))))
-	  (cons (f (head l) (head qs)) qs)))))
+        (list1 q0)
+        (let ((qs (scanr f q0 (tail l))))
+          (cons (f (head l) (head qs)) qs)))))
 
 ;; scanr1 :: (a -> a -> a) -> [a] -> [a]
 (define scanr1
   (lambda (f l)
     (if (null? l)
-	nil
-	(if (null? (tail l))
-	    l
-	    (let ((qs (scanr1 f (tail l))))
-	      (cons (f (head l) (head qs)) qs))))))
+        nil
+        (if (null? (tail l))
+            l
+            (let ((qs (scanr1 f (tail l))))
+              (cons (f (head l) (head qs)) qs))))))
 
 ;; snd :: (a, b) -> b
 (define snd
@@ -482,11 +483,11 @@
 (define span
   (lambda (p l)
     (if (null? l)
-	(tuple2 nil nil)
-	(if (p (head l))
-	    (let ((r (span p (tail l))))
-	      (tuple2 (cons (head l) (fst r)) (snd r)))
-	    (tuple2 nil l)))))
+        (tuple2 nil nil)
+        (if (p (head l))
+            (let ((r (span p (tail l))))
+              (tuple2 (cons (head l) (fst r)) (snd r)))
+            (tuple2 nil l)))))
 
 ;; splitAt :: Int -> [a] -> ([a],[a])
 (define split-at
@@ -510,35 +511,35 @@
 (define take
   (lambda (n l)
     (cond ((<= n 0) nil)
-	  ((null? l) nil)
-	  (else (cons (head l) (take (- n 1) (tail l)))))))
+          ((null? l) nil)
+          (else (cons (head l) (take (- n 1) (tail l)))))))
 
 ;; takeWhile :: (a -> Bool) -> [a] -> [a]
 (define take-while
   (lambda (p l)
     (if (null? l)
-	nil
-	(if (p (head l))
-	    (cons (head l) (take-while p (tail l)))
-	    nil))))
+        nil
+        (if (p (head l))
+            (cons (head l) (take-while p (tail l)))
+            nil))))
 
 ;; transpose :: [[a]] -> [[a]]
 (define transpose
   (lambda (l)
     (let ((protect
-	   (lambda (f)
-	     (lambda (x)
-	       (if (null? x)
-		   nil
-		   (f x))))))
+           (lambda (f)
+             (lambda (x)
+               (if (null? x)
+                   nil
+                   (f x))))))
       (cond ((null? l) nil)
-	    ((null? (head l)) (transpose (tail l)))
-	    (else (let* ((e (head l))
-			 (x (head e))
-			 (xs (tail e))
-			 (xss (tail l)))
-		    (cons (cons x (filter (compose not null?) (map1 (protect head) xss)))
-			  (transpose (cons xs (map (protect tail) xss))))))))))
+            ((null? (head l)) (transpose (tail l)))
+            (else (let* ((e (head l))
+                         (x (head e))
+                         (xs (tail e))
+                         (xss (tail l)))
+                    (cons (cons x (filter (compose not null?) (map1 (protect head) xss)))
+                          (transpose (cons xs (map (protect tail) xss))))))))))
 
 ;; tuple1 :: a -> (a)
 (define tuple1
@@ -571,8 +572,8 @@
   (lambda (f x)
     (let ((r (f x)))
       (if r
-	  (cons (fst r) (unfoldr f (snd r)))
-	  nil))))
+          (cons (fst r) (unfoldr f (snd r)))
+          nil))))
 
 ;; (unfoldr (lambda (b) (if (= b 0) #f (tuple2 b (- b 1)))) 10)
 ;; => (10 9 8 7 6 5 4 3 2 1)
@@ -602,15 +603,15 @@
 (define zip-with
   (lambda (f a b)
     (cond ((null? a) nil)
-	  ((null? b) nil)
-	  (else (cons (f (head a) (head b))
-		      (zip-with f (tail a) (tail b)))))))
+          ((null? b) nil)
+          (else (cons (f (head a) (head b))
+                      (zip-with f (tail a) (tail b)))))))
 
 ;; zipWith3 :: (a -> b -> c -> d) -> [a] -> [b] -> [c] -> [d]
 (define zip-with3
   (lambda (f a b c)
     (cond ((null? a) nil)
-	  ((null? b) nil)
-	  ((null? c) nil)
-	  (else (cons (f (head a) (head b) (head c))
-		      (zip-with3 f (tail a) (tail b) (tail c)))))))
+          ((null? b) nil)
+          ((null? c) nil)
+          (else (cons (f (head a) (head b) (head c))
+                      (zip-with3 f (tail a) (tail b) (tail c)))))))
