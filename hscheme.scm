@@ -256,6 +256,27 @@
 	  ((null? (tail l)) l)
 	  (else (cons (head l) (cons x (intersperse x (tail l))))))))
 
+;; isInfixOf :: (Eq a) => [a] -> [a] -> Bool
+(define is-infix-of
+  (lambda (p q)
+    (cond ((null? p) #t)
+	  ((null? q) #f)
+	  (else (or (is-prefix-of p q)
+		    (is-infix-of p (tail q)))))))
+
+;; isPrefixOf :: (Eq a) => [a] -> [a] -> Bool
+(define is-prefix-of
+  (lambda (p q)
+    (cond ((null? p) #t)
+	  ((null? q) #f)
+	  (else (and (equal? (head p) (head q)) 
+		     (is-prefix-of (tail p) (tail q)))))))
+
+;; isSuffixOf :: (Eq a) => [a] -> [a] -> Bool
+(define is-suffix-of
+  (lambda (p q)
+    (is-prefix-of (reverse p) (reverse q))))
+
 ;; last :: [a] -> a
 (define last
   (lambda (l)
