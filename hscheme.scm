@@ -268,7 +268,9 @@
 ;; or :: [Bool] -> Bool
 (define any-true
   (lambda (l)
-    (foldr or #f l)))
+    (if (null? l)
+	#f
+	(or (head l) (any-true (tail l))))))
 
 ;; otherwise :: Bool
 (define otherwise
