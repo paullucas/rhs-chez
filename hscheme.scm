@@ -323,6 +323,39 @@
 	nil
 	(cons (f (head l)) (map1 f (tail l))))))
 
+;; mapAccumL :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
+(define map-accum-l 
+  (lambda (f s l)
+    (if (null? l) 
+	(tuple2 s nil)
+	(let* ((x (head l))
+	       (xs (tail l))
+	       (s_y (f s x))
+	       (s_ (fst s_y))
+	       (y (snd s_y))
+	       (s__ys (map-accum-l f s_ xs))
+	       (s__ (fst s__ys))
+	       (ys (snd s__ys)))
+	  (tuple2 s__ (cons y ys))))))
+
+;; (map-accum-l (lambda (x y) (tuple2 (* x 3) (* y 5))) 3 '(1 2 3 4 5))
+;; => #(729 (5 10 15 20 25))
+
+;; mapAccumR :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
+(define map-accum-r
+  (lambda (f s l)
+    (if (null? l) 
+	(tuple2 s nil)
+	(let* ((x (head l))
+	       (xs (tail l))
+	       (s_ys (map-accum-r f s xs))
+	       (s_ (fst s_ys))
+	       (ys (snd s_ys))
+	       (s__y (f s_ x))
+	       (s__ (fst s__y))
+	       (y (snd s__y)))
+	  (tuple2 s__ (cons y ys))))))
+
 ;; maximum :: (Ord a) => [a] -> a
 (define maximum
   (lambda (l)
