@@ -1,6 +1,3 @@
-;; (!!) :: [a] -> Int -> a
-;; list-ref
-
 ;; all :: (a -> Bool) -> [a] -> Bool
 (define all
   (lambda (f l)
@@ -287,11 +284,11 @@
           (last xs)))))
 
 ;; length :: [a] -> Int
-(define length
-  (lambda (l)
-    (if (null? l)
-	0
-	(+ 1 (length (tail l))))))
+;; (define length
+;;   (lambda (l)
+;;     (if (null? l)
+;;         0
+;;         (+ 1 (length (tail l))))))
 
 ;; list1 :: a -> [a]
 (define list1
@@ -307,6 +304,13 @@
 (define list3
   (lambda (x y z)
     (list x y z)))
+
+;; (!!) :: [a] -> Int -> a
+;; (define list-ref
+;;   (lambda (l n)
+;;     (if (= n 0)
+;;         (head l)
+;;         (list-ref (tail l) (- n 1)))))
 
 ;; lookup :: (Eq a) => a -> [(a, b)] -> Maybe b
 (define lookup
@@ -438,10 +442,10 @@
         (cons x (replicate (- n 1) x)))))
 
 ;; reverse :: [a] -> [a]
-(define reverse
-  (lambda (l)
-    (foldl (flip cons) nil l)))
-	
+;; (define reverse
+;;   (lambda (l)
+;;     (foldl (flip cons) nil l)))
+        
 ;; scanl :: (a -> b -> a) -> a -> [b] -> [a]
 (define scanl
   (lambda (f q l)
