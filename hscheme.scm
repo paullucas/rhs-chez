@@ -106,6 +106,18 @@
   (lambda (x l)
     (any (lambda (y) (equal? x y)) l)))
 
+;; enumFromThenTo :: a -> a -> a -> [a]
+(define enum-from-then-to
+  (lambda (i j k)
+    (cond ((= i k) (list1 k))
+	  ((> i k) nil)
+	  (else (cons i (enum-from-then-to j (+ j (- j i)) k))))))
+
+;; enumFromTo :: a -> a -> [a]
+(define enum-from-to
+  (lambda (i j)
+    (enum-from-then-to i (succ i) j)))
+
 ;; even :: (Integral a) => a -> Bool
 (define even
   (lambda (n)
