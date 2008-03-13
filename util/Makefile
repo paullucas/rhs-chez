@@ -3,5 +3,5 @@ all:
 	plt-r5rs export.scm
 
 clean:
-	rm -f ../r6rs/hscheme.scm
-	rm -f ../plt/hscheme.ss
+	rm -f ../r6rs/rhs.scm
+	rm -f ../plt/rhs.ss

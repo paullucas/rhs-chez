@@ -31,22 +31,6 @@
   (lambda (p l)
     (span (compose not p) l)))
 
-;; compare :: (Ord a) => a -> a -> Ordering 
-(define GT 'GT)
-(define LT 'LT)
-(define EQ 'EQ)
-(define compare
-  (lambda (x y)
-    (cond ((> x y) GT)
-          ((< x y) LT)
-          (else EQ))))
-
-;; (.) :: (b -> c) -> (a -> b) -> a -> c
-(define compose
-  (lambda (f g)
-    (lambda (x)
-      (f (g x)))))
-
 ;; concat :: [[a]] -> [a]
 (define concat
   (lambda (l)
@@ -56,18 +40,6 @@
 (define concat-map
   (lambda (f l)
     (concat (map1 f l))))
-
-;; const :: a -> b -> a
-(define const
-  (lambda (x)
-    (lambda (_)
-      x)))
-
-;; curry :: ((a, b) -> c) -> a -> b -> c
-(define curry
-  (lambda (f)
-    (lambda (x y)
-      (f (tuple2 x y)))))
 
 ;; deleteBy :: (a -> a -> Bool) -> a -> [a] -> [a]
 (define delete-by
@@ -114,23 +86,6 @@
   (lambda (x l)
     (find-indices (lambda (y) (equal? x y)) l)))
 
-;; enumFromThenTo :: a -> a -> a -> [a]
-(define enum-from-then-to
-  (lambda (i j k)
-    (cond ((= i k) (list1 k))
-          ((> i k) nil)
-          (else (cons i (enum-from-then-to j (+ j (- j i)) k))))))
-
-;; enumFromTo :: a -> a -> [a]
-(define enum-from-to
-  (lambda (i j)
-    (enum-from-then-to i (succ i) j)))
-
-;; even :: (Integral a) => a -> Bool
-(define even
-  (lambda (n)
-    (even? n)))
-
 ;; find :: (a -> Bool) -> [a] -> Maybe a
 (define find
   (lambda (f l)
@@ -174,12 +129,6 @@
               (cons x (filter f xs))
               (filter f xs))))))
 
-;; flip :: (a -> b -> c) -> b -> a -> c
-(define flip
-  (lambda (f)
-    (lambda (x y)
-      (f y x))))
-
 ;; foldl :: (a -> b -> a) -> a -> [b] -> a
 (define foldl
   (lambda (f z l)
@@ -206,18 +155,8 @@
         (head l)
         (f (head l) (foldr1 f (tail l))))))
 
-;; fst :: (a, b) -> a
-(define fst
-  (lambda (v)
-    (vector-ref v 0)))
-
 ;; head :: [a] -> a
 (define head car)
-
-;; id :: a -> a
-(define id
-  (lambda (x)
-    x))
 
 ;; init :: [a] -> [a]
 (define init
@@ -306,11 +245,11 @@
     (list x y z)))
 
 ;; (!!) :: [a] -> Int -> a
-;; (define list-ref
-;;   (lambda (l n)
-;;     (if (= n 0)
-;;         (head l)
-;;         (list-ref (tail l) (- n 1)))))
+(define list-ref
+  (lambda (l n)
+    (if (= n 0)
+        (head l)
+        (list-ref (tail l) (- n 1)))))
 
 ;; lookup :: (Eq a) => a -> [(a, b)] -> Maybe b
 (define lookup
@@ -395,11 +334,8 @@
     (all (lambda (y) (not (equal? x y))) l)))
 
 ;; null :: [a] -> Bool
-(define null? (lambda (x) (equal? x nil)))
-
-;; odd :: (Integral a) => a -> Bool
-(define odd
-  odd?)
+(define null? 
+  (lambda (x) (equal? x nil)))
 
 ;; or :: [Bool] -> Bool
 (define any-true
@@ -407,10 +343,6 @@
     (if (null? l)
         #f
         (or (head l) (any-true (tail l))))))
-
-;; otherwise :: Bool
-(define otherwise
-  #t)
 
 ;; partition :: (a -> Bool) -> [a] -> ([a],[a])
 (define partition 
@@ -423,11 +355,6 @@
                           (tuple2 t (cons x f))))))))
     (lambda (p xs)
       (foldr (select p) (tuple2 nil nil) xs))))
-
-;; pred :: a -> a
-(define pred
-  (lambda (x)
-    (- x 1)))
 
 ;; product :: (Num a) => [a] -> a
 (define product
@@ -478,11 +405,6 @@
             (let ((qs (scanr1 f (tail l))))
               (cons (f (head l) (head qs)) qs))))))
 
-;; snd :: (a, b) -> b
-(define snd
-  (lambda (v)
-    (vector-ref v 1)))
-
 ;; span :: (a -> Bool) -> [a] -> ([a],[a])
 (define span
   (lambda (p l)
@@ -497,11 +419,6 @@
 (define split-at
   (lambda (n l)
     (tuple2 (take n l) (drop n l))))
-
-;; succ :: a -> a
-(define succ
-  (lambda (x)
-    (+ x 1)))
 
 ;; sum :: (Num a) => [a] -> a
 (define sum
@@ -544,32 +461,6 @@
                          (xss (tail l)))
                     (cons (cons x (filter (compose not null?) (map1 (protect head) xss)))
                           (transpose (cons xs (map (protect tail) xss))))))))))
-
-;; tuple1 :: a -> (a)
-(define tuple1
-  (lambda (x)
-    (vector x)))
-
-;; tuple2 :: a -> b -> (a, b)
-(define tuple2
-  (lambda (x y)
-    (vector x y)))
-
-;; tuple3 :: a -> b -> c -> (a, b, c)
-(define tuple3
-  (lambda (x y z)
-    (vector x y z)))
-
-;; uncurry :: (a -> b -> c) -> (a, b) -> c
-(define uncurry
-  (lambda (f)
-    (lambda (xy)
-      (f (fst xy) (snd xy)))))
-
-;; undefined :: a
-(define undefined
-  (lambda ()
-    (head nil)))
 
 ;; unfoldr :: (b -> Maybe (a, b)) -> b -> [a]
 (define unfoldr
