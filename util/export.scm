@@ -34,6 +34,7 @@
 	 "data/function.scm"
 	 "data/list.scm"
 	 "data/ord.scm"
+	 "data/tree.scm"
 	 "data/tuple.scm")))
 
 (define rhs-r6rs
