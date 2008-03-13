@@ -37,12 +37,27 @@
 	 "data/tree.scm"
 	 "data/tuple.scm")))
 
+(define excluding
+  (lambda (xs s)
+    (filter 
+     (lambda (x) 
+       (not (elem (head (tail x)) s))) 
+     xs)))
+
+(define in-r6rs
+  (list 'length
+	'list-ref
+	'not
+	'null?
+	'reverse
+	))
+
 (define rhs-r6rs
-  (let ((xs (map1 all-values rhs-libraries)))
+  (let ((xs (concat-map all-values rhs-libraries)))
     `(library (rhs)
 	      ,(export-list xs)
 	      (import (rnrs base))
-	      ,@xs)))
+	      ,@(excluding xs in-r6rs))))
 
 (define in-plt
   (list 'compose
@@ -59,10 +74,7 @@
   (let ((xs (concat-map all-values rhs-libraries)))
     `(module rhs scheme/base
 	     (provide (all-defined-out))
-	     ,@(filter 
-		(lambda (x) 
-		  (not (elem (head (tail x)) in-plt))) 
-		xs))))
+	     ,@(excluding xs in-r6rs))))
 
 (call-with-output-file "../r6rs/rhs.scm"
   (lambda (p)
