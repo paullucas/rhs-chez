@@ -284,11 +284,11 @@
           (last xs)))))
 
 ;; length :: [a] -> Int
-;; (define length
-;;   (lambda (l)
-;;     (if (null? l)
-;;         0
-;;         (+ 1 (length (tail l))))))
+(define length
+  (lambda (l)
+    (if (null? l)
+	0
+	(+ 1 (length (tail l))))))
 
 ;; list1 :: a -> [a]
 (define list1
@@ -395,7 +395,7 @@
     (all (lambda (y) (not (equal? x y))) l)))
 
 ;; null :: [a] -> Bool
-(define null null?)
+(define null? (lambda (x) (equal? x nil)))
 
 ;; odd :: (Integral a) => a -> Bool
 (define odd
@@ -442,9 +442,9 @@
         (cons x (replicate (- n 1) x)))))
 
 ;; reverse :: [a] -> [a]
-;; (define reverse
-;;   (lambda (l)
-;;     (foldl (flip cons) nil l)))
+(define reverse
+  (lambda (l)
+    (foldl (flip cons) nil l)))
         
 ;; scanl :: (a -> b -> a) -> a -> [b] -> [a]
 (define scanl
