@@ -177,7 +177,7 @@
   (lambda (f x l)
     (if (null? l)
         (list1 x)
-        (if (equal? (f x (head l)) GT)
+        (if (equal? (f x (head l)) gt)
             (cons (head l) (insert-by f x (tail l)))
             (cons x l)))))
 
@@ -404,6 +404,45 @@
             l
             (let ((qs (scanr1 f (tail l))))
               (cons (f (head l) (head qs)) qs))))))
+
+;; sort :: (Ord a) => [a] -> [a]
+(define sort
+  (lambda (l)
+    (sort-by compare l)))
+
+;; sortBy :: (a -> a -> Ordering) -> [a] -> [a]
+(define sort-by
+  (lambda (f l)
+    (mergesort f l)))
+
+;; mergesort :: (a -> a -> Ordering) -> [a] -> [a]
+(define mergesort
+  (lambda (f l)
+    (mergesort* f (map1 list1 l))))
+
+;; mergesort' :: (a -> a -> Ordering) -> [[a]] -> [a]
+(define mergesort*
+  (lambda (f l)
+    (cond ((null? l) nil)
+	  ((null? (tail l)) (head l))
+	  (else (mergesort* f (merge-pairs f l))))))
+
+;; merge_pairs :: (a -> a -> Ordering) -> [[a]] -> [[a]]
+(define merge-pairs 
+  (lambda (f l)
+    (cond ((null? l) nil)
+	  ((null? (tail l)) l)
+	  (else (cons (merge f (head l) (head (tail l)))
+		      (merge-pairs f (tail (tail l))))))))
+
+;; merge :: (a -> a -> Ordering) -> [a] -> [a] -> [a]
+(define merge 
+  (lambda (f l r)
+    (cond ((null? l) r)
+	  ((null? r) l)
+	  (else (if (equal? (f (head l) (head r)) gt)
+		    (cons (head r) (merge f l (tail r)))
+		    (cons (head l) (merge f (tail l) r)))))))
 
 ;; span :: (a -> Bool) -> [a] -> ([a],[a])
 (define span
