@@ -22,8 +22,8 @@
 	  (f p))))))
 
 (define export-list
-  (lambda (l)
-    (cons 'export (identifiers l))))
+  (lambda (s l)
+    (cons s (identifiers l))))
 
 (define rhs-libraries
   (map1
@@ -44,20 +44,29 @@
        (not (elem (head (tail x)) s))) 
      xs)))
 
+(define are-private
+  (list 'mergesort
+	'mergesort*
+	'merge-pairs
+	'merge))
+
 (define in-r6rs
   (list 'length
 	'list-ref
 	'not
 	'null?
 	'reverse
-	))
+	'sort))
 
 (define rhs-r6rs
-  (let ((xs (concat-map all-values rhs-libraries)))
+  (let* ((xs (concat-map all-values rhs-libraries))
+	 (xs-p (excluding xs are-private))
+	 (xs-r (excluding xs in-r6rs))
+	 (xs-rp (excluding xs-p in-r6rs)))
     `(library (rhs)
-	      ,(export-list xs)
+	      ,(export-list 'export xs-rp)
 	      (import (rnrs base))
-	      ,@(excluding xs in-r6rs))))
+	      ,@xs-r)))
 
 (define in-plt
   (list 'compose
@@ -68,13 +77,17 @@
 	'list-ref
 	'not
 	'null?
-	'reverse))
+	'reverse
+	'sort))
 
 (define rhs-plt
-  (let ((xs (concat-map all-values rhs-libraries)))
+  (let* ((xs (concat-map all-values rhs-libraries))
+	 (xs-p (excluding xs are-private))
+	 (xs-r (excluding xs in-plt))
+	 (xs-rp (excluding xs-p in-plt)))
     `(module rhs scheme/base
-	     (provide (all-defined-out))
-	     ,@(excluding xs in-r6rs))))
+	     ,(export-list 'provide xs-rp)
+	     ,@xs-r)))
 
 (call-with-output-file "../r6rs/rhs.scm"
   (lambda (p)
