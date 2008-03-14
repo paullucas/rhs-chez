@@ -5,7 +5,7 @@
   (lambda (l)
     (let ((f (lambda (x)
 	       (if (and (list? x)
-			(equal? (head x) 'define))
+			(elem (head x) (list 'define 'define-syntax)))
 		   (head (tail x))
 		   #f))))
       (filter id (map f l)))))
