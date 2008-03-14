@@ -232,17 +232,27 @@
 ;; list1 :: a -> [a]
 (define list1
   (lambda (x)
-    (list x)))
+    (cons x nil)))
 
 ;; list2 :: a -> a -> [a]
 (define list2
   (lambda (x y)
-    (list x y)))
+    (cons x (cons y nil))))
 
 ;; list3 :: a -> a -> a -> [a]
 (define list3
   (lambda (x y z)
-    (list x y z)))
+    (cons x (cons y (cons z nil)))))
+
+;; list4 :: a -> a -> a -> a -> [a]
+(define list4
+  (lambda (x y z a)
+    (cons x (cons y (cons z (cons a nil))))))
+
+;; list5 :: a -> a -> a -> a -> a -> [a]
+(define list5
+  (lambda (x y z a b)
+    (cons x (cons y (cons z (cons a (cons b nil)))))))
 
 ;; (!!) :: [a] -> Int -> a
 (define list-ref

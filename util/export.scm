@@ -30,6 +30,7 @@
    (lambda (x)
      (string-append "../src/" x))
    (list "prelude.scm"
+	 "control/monad.scm"
 	 "data/bool.scm"
 	 "data/function.scm"
 	 "data/list.scm"
