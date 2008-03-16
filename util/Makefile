@@ -1,6 +1,6 @@
 all:
 	make clean
-	plt-r5rs export.scm
+	plt-r5rs mk.scm
 
 clean:
 	rm -f ../r6rs/rhs.scm
