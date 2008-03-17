@@ -3,21 +3,21 @@
   (lambda (f l)
     (if (null? l)
         #t
-        (and (f (head l)) (all f (tail l))))))
+        (and2 (f (head l)) (all f (tail l))))))
 
 ;; and :: [Bool] -> Bool
 (define all-true
   (lambda (l)
     (if (null? l)
         #t
-        (and (head l) (all-true (tail l))))))
+        (and2 (head l) (all-true (tail l))))))
 
 ;; any :: (a -> Bool) -> [a] -> Bool
 (define any
   (lambda (f l)
     (if (null? l)
         #f
-        (or (f (head l)) (any f (tail l))))))
+        (or2 (f (head l)) (any f (tail l))))))
 
 ;; (++) :: [a] -> [a] -> [a]
 (define append2
@@ -198,16 +198,16 @@
   (lambda (p q)
     (cond ((null? p) #t)
           ((null? q) #f)
-          (else (or (is-prefix-of p q)
-                    (is-infix-of p (tail q)))))))
+          (else (or2 (is-prefix-of p q)
+		     (is-infix-of p (tail q)))))))
 
 ;; isPrefixOf :: (Eq a) => [a] -> [a] -> Bool
 (define is-prefix-of
   (lambda (p q)
     (cond ((null? p) #t)
           ((null? q) #f)
-          (else (and (equal? (head p) (head q)) 
-                     (is-prefix-of (tail p) (tail q)))))))
+          (else (and2 (equal? (head p) (head q)) 
+		      (is-prefix-of (tail p) (tail q)))))))
 
 ;; isSuffixOf :: (Eq a) => [a] -> [a] -> Bool
 (define is-suffix-of
@@ -352,7 +352,7 @@
   (lambda (l)
     (if (null? l)
         #f
-        (or (head l) (any-true (tail l))))))
+        (or2 (head l) (any-true (tail l))))))
 
 ;; partition :: (a -> Bool) -> [a] -> ([a],[a])
 (define partition 
