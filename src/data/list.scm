@@ -344,8 +344,9 @@
     (all (lambda (y) (not (equal? x y))) l)))
 
 ;; null :: [a] -> Bool
-(define null? 
-  (lambda (x) (equal? x nil)))
+(define null?
+  (lambda (x)
+    (equal? x nil)))
 
 ;; or :: [Bool] -> Bool
 (define any-true
@@ -508,8 +509,11 @@
                          (x (head e))
                          (xs (tail e))
                          (xss (tail l)))
-                    (cons (cons x (filter (compose not null?) (map1 (protect head) xss)))
-                          (transpose (cons xs (map (protect tail) xss))))))))))
+                    (cons (cons x 
+				(filter (compose not null?) 
+					(map1 (protect head) xss)))
+                          (transpose (cons xs 
+					   (map1 (protect tail) xss))))))))))
 
 ;; unfoldr :: (b -> Maybe (a, b)) -> b -> [a]
 (define unfoldr
