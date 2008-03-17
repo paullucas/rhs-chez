@@ -60,7 +60,9 @@
 	       (xs-p (excluding xs are-private))
 	       (xs-r (excluding xs to-exclude))
 	       (xs-rp (excluding xs-p to-exclude)))
-	  (write `(module ,lib (only-in scheme/base ,@rhs-requires)
+	  (write `(module ,lib 
+			  ;;(only-in scheme/base ,@rhs-requires)
+			  scheme/base
 			  ,(export-list 'provide xs-rp)
 			  (require ,@imports)
 			  ,@xs-r)

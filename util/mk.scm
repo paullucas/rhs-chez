@@ -60,6 +60,8 @@
     foldr
     length
     list-ref
+    max
+    min
     not
     null?
     reverse
