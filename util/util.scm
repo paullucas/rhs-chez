@@ -31,18 +31,25 @@
        (not (elem (head (tail x)) s))) 
      xs)))
 
+(define mk-r5rs
+  (lambda (srcs dst)
+    (call-with-output-file dst
+      (lambda (p)
+	(let* ((xs (concat-map all-values srcs)))
+	  (map1 (lambda (x)
+		  (write x p))
+		xs))))))
+
 (define mk-r6rs
   (lambda (lib srcs dst imports are-private to-exclude)
     (call-with-output-file dst
       (lambda (p)
 	(let* ((xs (concat-map all-values srcs))
-	       (xs-p (excluding xs are-private))
-	       (xs-r (excluding xs to-exclude))
-	       (xs-rp (excluding xs-p to-exclude)))
+	       (xs-p (excluding xs (append2 are-private to-exclude))))
 	  (write `(library ,lib
-			   ,(export-list 'export xs-rp)
+			   ,(export-list 'export xs-p)
 			   (import ,@imports)
-			   ,@xs-r)
+			   ,@xs)
 		 p))))))
 
 (define mk-plt
@@ -53,7 +60,7 @@
 	       (xs-p (excluding xs are-private))
 	       (xs-r (excluding xs to-exclude))
 	       (xs-rp (excluding xs-p to-exclude)))
-	  (write `(module ,lib scheme/base
+	  (write `(module ,lib (only-in scheme/base ,@rhs-requires)
 			  ,(export-list 'provide xs-rp)
 			  (require ,@imports)
 			  ,@xs-r)
