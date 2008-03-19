@@ -81,6 +81,7 @@
 (mk-plt 'rhs
 	 rhs-libraries
 	 "../plt/rhs.ss"
-	 '()
+	 `((only-in scheme/base
+		    ,@rhs-requires))
 	 rhs-private 
 	 scheme/base-conflicts)

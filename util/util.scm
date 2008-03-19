@@ -57,13 +57,10 @@
     (call-with-output-file dst
       (lambda (p)
 	(let* ((xs (concat-map all-values srcs))
-	       (xs-p (excluding xs are-private))
-	       (xs-r (excluding xs to-exclude))
-	       (xs-rp (excluding xs-p to-exclude)))
+	       (xs-p (excluding xs (append2 are-private to-exclude))))
 	  (write `(module ,lib 
-			  ;;(only-in scheme/base ,@rhs-requires)
-			  scheme/base
-			  ,(export-list 'provide xs-rp)
+			  rhs/plt/empty
+			  ,(export-list 'provide xs-p)
 			  (require ,@imports)
-			  ,@xs-r)
+			  ,@xs)
 		 p))))))
