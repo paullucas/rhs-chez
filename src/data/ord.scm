@@ -1,21 +1,18 @@
 ;; data Ordering = LT | EQ | GT
-(define lt 'lt)
-(define eq 'eq)
-(define gt 'gt)
 
 ;; compare :: (Ord a) => a -> a -> Ordering 
 (define compare
   (lambda (x y)
-    (cond ((> x y) gt)
-          ((< x y) lt)
-          (else eq))))
+    (cond ((> x y) 'gt)
+          ((< x y) 'lt)
+          (else 'eq))))
 
 ;; max :: a -> a -> a
-(define max
+(define max2
   (lambda (x y)
     (if (> x y) x y)))
 
 ;; min :: a -> a -> a
-(define min
+(define min2
   (lambda (x y)
     (if (< x y) x y)))

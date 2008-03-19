@@ -9,6 +9,10 @@
   (syntax-rules ()
     ((_ p q) (if p p q))))
 
+(define-syntax or3
+  (syntax-rules ()
+    ((_ p q r) (if p p (if q q r)))))
+
 ;; otherwise :: Bool
 (define otherwise
   #t)

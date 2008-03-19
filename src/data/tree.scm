@@ -12,5 +12,5 @@
   (lambda (t)
     (if (null? t)
 	nil
-	(let ((lr (partition (compose not pair?) t)))
+	(let ((lr (partition* (compose not pair?) t)))
 	  (cons (fst lr) (levels (concat (snd lr))))))))

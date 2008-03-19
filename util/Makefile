@@ -4,5 +4,5 @@ all:
 
 clean:
 	rm -f ../r5rs/rhs.scm
-	rm -f ../r6rs/rhs.scm
+	rm -f ../r6rs/rhs.ss
 	rm -f ../plt/rhs.ss

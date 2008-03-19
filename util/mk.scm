@@ -19,17 +19,39 @@
 ;; bindings required to compile rhs
 (define rhs-requires
   '(define 
-    define-syntax syntax-rules
-    quote
-    lambda
-    let let* letrec
-    if cond else
-    cons car cdr pair? list
-    equal?
-    = + - * /
-    even? odd?
-    > < >= <=
-    vector vector-ref))
+     define-syntax syntax-rules
+     quote
+     lambda
+     let let* letrec
+     if cond else
+     cons car cdr pair? list
+     equal?
+     = + - * /
+     even? odd?
+     > < >= <=
+     vector vector-ref
+     ))
+
+(define rhs-provides
+  '(begin
+     integer->char 
+     char->integer 
+     list->string 
+     string->list 
+     string-length 
+     string?
+     number->string
+     display newline
+     list?
+     round
+     floor 
+     expt 
+     integer? 
+     real? 
+     number?
+     symbol?
+     symbol->string
+     boolean?))
 
 ;; bindings rhs introduces but ought not to export
 (define rhs-private
@@ -38,19 +60,15 @@
     merge-pairs
     merge))
 
-;; conflicts with the (rnrs) library
-(define rnrs-conflicts
+;; equalities with the (rnrs) library
+(define rnrs-equalities
   '(filter
     find
     length
     list-ref
-    max
-    min
     not
     null?
-    partition
-    reverse
-    sort))
+    reverse))
 
 ;; conflicts with scheme/base
 (define scheme/base-conflicts
@@ -72,16 +90,15 @@
 
 (mk-r6rs '(rhs r6rs rhs)
 	 rhs-libraries
-	 "../r6rs/rhs.scm"
+	 "../r6rs/rhs.ss"
 	 `((only (rnrs) 
 		 ,@rhs-requires))
 	 rhs-private
-	 rnrs-conflicts)
+	 rnrs-equalities)
 
 (mk-plt 'rhs
-	 rhs-libraries
-	 "../plt/rhs.ss"
-	 `((only-in scheme/base
-		    ,@rhs-requires))
-	 rhs-private 
-	 scheme/base-conflicts)
+	rhs-libraries
+	"../plt/rhs.ss"
+	rhs-private 
+	rhs-requires
+	rhs-provides)

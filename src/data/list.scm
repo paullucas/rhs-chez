@@ -177,7 +177,7 @@
   (lambda (f x l)
     (if (null? l)
         (list1 x)
-        (if (equal? (f x (head l)) gt)
+        (if (equal? (f x (head l)) 'gt)
             (cons (head l) (insert-by f x (tail l)))
             (cons x l)))))
 
@@ -313,12 +313,12 @@
 ;; maximum :: (Ord a) => [a] -> a
 (define maximum
   (lambda (l)
-    (foldl1 max l)))
+    (foldl1 max2 l)))
 
 ;; minimum :: (Ord a) => [a] -> a
 (define minimum
   (lambda (l)
-    (foldl1 min l)))
+    (foldl1 min2 l)))
 
 ;; nub :: (Eq a) => [a] -> [a]
 (define nub
@@ -355,8 +355,8 @@
         #f
         (or2 (head l) (any-true (tail l))))))
 
-;; partition :: (a -> Bool) -> [a] -> ([a],[a])
-(define partition 
+;; partition :: (a -> Bool) -> [a] -> ([a], [a])
+(define partition* 
   (let ((select (lambda (p) 
                   (lambda (x tf)
                     (let ((t (fst tf))
@@ -451,7 +451,7 @@
   (lambda (f l r)
     (cond ((null? l) r)
 	  ((null? r) l)
-	  (else (if (equal? (f (head l) (head r)) gt)
+	  (else (if (equal? (f (head l) (head r)) 'gt)
 		    (cons (head r) (merge f l (tail r)))
 		    (cons (head l) (merge f (tail l) r)))))))
 

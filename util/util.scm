@@ -46,6 +46,8 @@
       (lambda (p)
 	(let* ((xs (concat-map all-values srcs))
 	       (xs-p (excluding xs (append2 are-private to-exclude))))
+	  (display "#!r6rs" p)
+	  (newline p)
 	  (write `(library ,lib
 			   ,(export-list 'export xs-p)
 			   (import ,@imports)
@@ -53,14 +55,18 @@
 		 p))))))
 
 (define mk-plt
-  (lambda (lib srcs dst imports are-private to-exclude)
+  (lambda (lib srcs dst are-private to-require to-provide)
     (call-with-output-file dst
       (lambda (p)
 	(let* ((xs (concat-map all-values srcs))
-	       (xs-p (excluding xs (append2 are-private to-exclude))))
+	       (xs-p (excluding xs are-private)))
 	  (write `(module ,lib 
 			  rhs/plt/empty
-			  ,(export-list 'provide xs-p)
-			  (require ,@imports)
+			  ,(cons 'provide (concat (list (identifiers xs-p)
+							to-require
+							to-provide)))
+			  (require (only-in scheme/base
+					    ,@to-require
+					    ,@to-provide))
 			  ,@xs)
 		 p))))))
