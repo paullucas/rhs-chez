@@ -2,12 +2,29 @@
 (define identifiers
   (lambda (l)
     (let ((f (lambda (x)
-	       (if (and (list? x)
-			(equal? (take 6 (string->list (symbol->string (head x))))
-				(string->list "define")))
-		   (head (tail x))
+	       (if (list? x)
+		   (let ((d (list-ref x 0)))
+		     (cond ((elem d (list 'define 'define-syntax))
+			    (list (list-ref x 1)))
+			   ((equal? d 'define-record-type)
+			    (let* ((r (list-ref x 1))
+				   (rs (symbol->string r))
+				   (fs (tail (list-ref x 2)))
+				   (fss (map symbol->string fs)))
+			      (cons 
+			       r
+			       (cons
+				(string->symbol (string-append "make-" rs))
+				(map (lambda (s)
+				       (string->symbol 
+					(string-append rs "-" s)))
+				     fss)))))
+			   ((equal? (take 6 (string->list (symbol->string d)))
+				    (string->list "define"))
+			    (list (list-ref x 1)))
+			   (else #f)))
 		   #f))))
-      (filter id (map f l)))))
+      (concat (filter id (map f l))))))
 
 (define all-values
   (letrec ((f (lambda (p)
