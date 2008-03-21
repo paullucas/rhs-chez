@@ -12,8 +12,7 @@
 
 ;; even :: (Integral a) => a -> Bool
 (define even
-  (lambda (n)
-    (even? n)))
+  even?)
 
 ;; odd :: (Integral a) => a -> Bool
 (define odd
@@ -32,5 +31,5 @@
 ;; undefined :: a
 (define undefined
   (lambda ()
-    (head nil)))
+    (error "undefined" "undefined")))
 

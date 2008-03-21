@@ -3,6 +3,9 @@
   (syntax-rules ()
     ((_ p q) (if p q #f))))
 
+(define-syntax and3
+  (syntax-rules ()
+    ((_ p q r) (and2 p (and2 q r)))))
 
 ;; (||) :: Bool -> Bool -> Bool
 (define-syntax or2
@@ -11,7 +14,7 @@
 
 (define-syntax or3
   (syntax-rules ()
-    ((_ p q r) (if p p (if q q r)))))
+    ((_ p q r) (or2 p (or2 q r)))))
 
 ;; otherwise :: Bool
 (define otherwise
