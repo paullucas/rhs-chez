@@ -3,5 +3,116 @@ rhs - relevant haskell libraries in scheme
 an r6rs implementation of parts of the haskell 
 hierarchical libraries.
 
+haskell        rhs            rnrs
+---------------------------------------------
+
+* control.monad
+replicateM     replicate-m
+               replicate-m*
+
+* data.bool
+(&&)           and2           and
+               and3
+(||)           or2            or
+               or3
+otherwise      otherwise
+not            not            not
+
+* data.function
+(.)            compose        compose
+const          const
+flip           flip
+id             id
+
+* data.list
+all            all
+and            all-true
+any            any-true
+(++)           append2       append
+break          break
+concat         concat
+concatMap      concat-map
+deleteBy       delete-by
+delete         delete
+dropWhile      drop-while
+elem           elem           member
+elemIndex      elem-index
+find           find
+findIndex      find-index
+findIndices    find-indices
+filter         filter         filter
+foldl          foldl          fold-left
+foldl1         foldl1
+foldr          foldr          fold-right
+foldr1         foldr1
+head           head           car
+init           init
+insert         insert
+insertBy       insert-by
+intercalate    intercalate
+intersperse    intersperse
+isInfixOf      is-infix-of
+isPrefixOf     is-prefix-of
+isSuffixOf     is-suffix-of
+last           last
+length         length
+[,]            list
+               list1, list2, list3, list4, list5
+(!!)           list-ref
+lookup         lookup
+map            map1          map
+mapAccumL      map-accum-l
+mapAccumR      map-accum-r
+maximum        maximum
+minimum        minimum
+nub            nub
+nubBy          nub-by
+[]             nil
+notElem        not-elem
+null           null?          null?
+or             any-true
+partition      partition*     partition
+product        product
+replicate      replicate
+reverse        reverse        reverse
+scanl          scanl
+scanll         scanl1
+scanr          scanr
+scanr1         scanr1
+sort           sort           list-sort
+sortBy         sort-by
+span           span
+splitAt        split-at
+sum            sum
+tail           tail           cdr
+take           take
+takeWhile      take-while
+transpose      transpose
+unfoldr        unfoldr
+union          union
+unionBy        union-by
+zip            zip
+zip3           zip3
+zipWith        zip-with       map
+zipWith3       zip-with3      map
+
+* data.ord
+LT, EQ, GT     'lt, 'eq, 'gt
+compare        compare
+max            max2           max
+min            min2           min
+
+* data.tree
+flatten        flatten
+levels         levels
+
+* data.tuple
+curry          curry
+fst            fst
+snd            snd
+(,)            tuple2
+               tuple1, tuple3
+uncurry        uncurry
+
 (c) rohan drape, 2008
     gpl.2, see http://www.gnu.org/copyleft
