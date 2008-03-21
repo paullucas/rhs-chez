@@ -1,7 +1,7 @@
 rhs - relevant haskell libraries in scheme
 
 an r6rs implementation of parts of the haskell 
-hierarchical libraries
+hierarchical libraries.
 
 (c) rohan drape, 2008
-    GPL.2, see http://www.gnu.org/copyleft
+    gpl.2, see http://www.gnu.org/copyleft
