@@ -60,7 +60,7 @@ length         length
                list1, list2, list3, list4, list5
 (!!)           list-ref
 lookup         lookup
-map            map1          map
+map            map1           map
 mapAccumL      map-accum-l
 mapAccumR      map-accum-r
 maximum        maximum
@@ -113,6 +113,16 @@ snd            snd
 (,)            tuple2
                tuple1, tuple3
 uncurry        uncurry
+
+* prelude
+enumFromThenTo enum-from-then-to
+enumFromTo     enum-from-to
+error                         error
+even           even           even?
+odd            odd            odd?
+pred           pred
+succ           succ
+undefined      undefined
 
 (c) rohan drape, 2008
     gpl.2, see http://www.gnu.org/copyleft
