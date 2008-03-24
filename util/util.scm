@@ -15,13 +15,12 @@
 			       r
 			       (cons
 				(string->symbol (string-append "make-" rs))
-				(map (lambda (s)
-				       (string->symbol 
-					(string-append rs "-" s)))
-				     fss)))))
-			   ((equal? (take 6 (string->list (symbol->string d)))
-				    (string->list "define"))
-			    (list (list-ref x 1)))
+				(cons 
+				 (string->symbol (string-append rs "?"))
+				 (map (lambda (s)
+					(string->symbol 
+					 (string-append rs "-" s)))
+				      fss))))))
 			   (else #f)))
 		   #f))))
       (concat (filter id (map f l))))))

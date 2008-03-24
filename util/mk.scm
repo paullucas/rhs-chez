@@ -30,6 +30,7 @@
      even? odd?
      > < >= <=
      vector vector-ref
+     error
      ))
 
 (define rhs-provides
@@ -90,7 +91,7 @@
 
 (mk-r6rs '(rhs r6rs rhs)
 	 rhs-libraries
-	 "../r6rs/rhs.ss"
+	 "../r6rs/rhs.sls"
 	 `((only (rnrs) 
 		 ,@rhs-requires))
 	 rhs-private
