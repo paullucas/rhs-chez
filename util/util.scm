@@ -1,15 +1,26 @@
+(library (rhs util util)
+(export mk-r5rs mk-r6rs mk-plt)
+(import (rnrs))
+
+(define concat
+  (lambda (l)
+    (fold-right append (list) l)))
+
+(define id
+  (lambda (x)
+    x))
 
 (define identifiers
   (lambda (l)
     (let ((f (lambda (x)
 	       (if (list? x)
 		   (let ((d (list-ref x 0)))
-		     (cond ((elem d (list 'define 'define-syntax))
+		     (cond ((member d (list 'define 'define-syntax))
 			    (list (list-ref x 1)))
 			   ((equal? d 'define-record-type)
 			    (let* ((r (list-ref x 1))
 				   (rs (symbol->string r))
-				   (fs (tail (list-ref x 2)))
+				   (fs (cdr (list-ref x 2)))
 				   (fss (map symbol->string fs)))
 			      (cons 
 			       r
@@ -44,24 +55,24 @@
   (lambda (xs s)
     (filter 
      (lambda (x) 
-       (not (elem (head (tail x)) s))) 
+       (not (member (car (cdr x)) s))) 
      xs)))
 
 (define mk-r5rs
   (lambda (srcs dst)
     (call-with-output-file dst
       (lambda (p)
-	(let* ((xs (concat-map all-values srcs)))
-	  (map1 (lambda (x)
-		  (write x p))
-		xs))))))
+	(let* ((xs (concat (map all-values srcs))))
+	  (map (lambda (x)
+                 (write x p))
+               xs))))))
 
 (define mk-r6rs
   (lambda (lib srcs dst imports are-private to-exclude)
     (call-with-output-file dst
       (lambda (p)
-	(let* ((xs (concat-map all-values srcs))
-	       (xs-p (excluding xs (append2 are-private to-exclude))))
+	(let* ((xs (concat (map all-values srcs)))
+	       (xs-p (excluding xs (append are-private to-exclude))))
 	  (display "#!r6rs" p)
 	  (newline p)
 	  (write `(library ,lib
@@ -74,7 +85,7 @@
   (lambda (lib srcs dst are-private to-require to-provide)
     (call-with-output-file dst
       (lambda (p)
-	(let* ((xs (concat-map all-values srcs))
+	(let* ((xs (concat (map all-values srcs)))
 	       (xs-p (excluding xs are-private)))
 	  (write `(module ,lib 
 			  rhs/plt/empty
@@ -86,3 +97,5 @@
 					    ,@to-provide))
 			  ,@xs)
 		 p))))))
+
+)

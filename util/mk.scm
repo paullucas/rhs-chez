@@ -1,10 +1,8 @@
-(load "/home/rohan/sw/rhs/src/data/bool.scm")
-(load "/home/rohan/sw/rhs/src/data/function.scm")
-(load "/home/rohan/sw/rhs/src/data/list.scm")
-(load "util.scm")
+(import (rnrs)
+        (rhs util util))
 
 (define rhs-libraries
-  (map1
+  (map
    (lambda (x)
      (string-append "../src/" x))
    (list "prelude.scm"
@@ -103,3 +101,5 @@
 	rhs-private 
 	rhs-requires
 	rhs-provides)
+
+(exit)

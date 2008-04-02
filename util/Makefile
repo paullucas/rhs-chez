@@ -1,6 +1,6 @@
 all:
 	make clean
-	plt-r5rs mk.scm
+	ikarus mk.scm
 
 clean:
 	rm -f ../r5rs/rhs.scm
