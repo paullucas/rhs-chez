@@ -1,5 +1,5 @@
 (library (rhs util util)
-(export mk-r5rs mk-r6rs mk-plt)
+(export mk-r5rs mk-r6rs)
 (import (rnrs))
 
 (define concat
@@ -79,23 +79,6 @@
 			   ,(export-list 'export xs-p)
 			   (import ,@imports)
 			   ,@xs)
-		 p))))))
-
-(define mk-plt
-  (lambda (lib srcs dst are-private to-require to-provide)
-    (call-with-output-file dst
-      (lambda (p)
-	(let* ((xs (concat (map all-values srcs)))
-	       (xs-p (excluding xs are-private)))
-	  (write `(module ,lib 
-			  rhs/plt/empty
-			  ,(cons 'provide (concat (list (identifiers xs-p)
-							to-require
-							to-provide)))
-			  (require (only-in scheme/base
-					    ,@to-require
-					    ,@to-provide))
-			  ,@xs)
 		 p))))))
 
 )
