@@ -168,7 +168,7 @@
           (cons x (init xs))))))
 
 ;; insert :: Ord a => a -> [a] -> [a]
-(define insert 
+(define insert
   (lambda (e l)
     (insert-by compare e l)))
 
@@ -199,15 +199,15 @@
     (cond ((null? p) #t)
           ((null? q) #f)
           (else (or2 (is-prefix-of p q)
-		     (is-infix-of p (tail q)))))))
+                     (is-infix-of p (tail q)))))))
 
 ;; isPrefixOf :: (Eq a) => [a] -> [a] -> Bool
 (define is-prefix-of
   (lambda (p q)
     (cond ((null? p) #t)
           ((null? q) #f)
-          (else (and2 (equal? (head p) (head q)) 
-		      (is-prefix-of (tail p) (tail q)))))))
+          (else (and2 (equal? (head p) (head q))
+                      (is-prefix-of (tail p) (tail q)))))))
 
 ;; isSuffixOf :: (Eq a) => [a] -> [a] -> Bool
 (define is-suffix-of
@@ -226,8 +226,8 @@
 (define length
   (lambda (l)
     (if (null? l)
-	0
-	(+ 1 (length (tail l))))))
+        0
+        (+ 1 (length (tail l))))))
 
 ;; list1 :: a -> [a]
 (define list1
@@ -278,9 +278,9 @@
         (cons (f (head l)) (map1 f (tail l))))))
 
 ;; mapAccumL :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
-(define map-accum-l 
+(define map-accum-l
   (lambda (f s l)
-    (if (null? l) 
+    (if (null? l)
         (tuple2 s nil)
         (let* ((x (head l))
                (xs (tail l))
@@ -292,13 +292,10 @@
                (ys (snd s__ys)))
           (tuple2 s__ (cons y ys))))))
 
-;; (map-accum-l (lambda (x y) (tuple2 (* x 3) (* y 5))) 3 '(1 2 3 4 5))
-;; => #(729 (5 10 15 20 25))
-
 ;; mapAccumR :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
 (define map-accum-r
   (lambda (f s l)
-    (if (null? l) 
+    (if (null? l)
         (tuple2 s nil)
         (let* ((x (head l))
                (xs (tail l))
@@ -356,12 +353,12 @@
         (or2 (head l) (any-true (tail l))))))
 
 ;; partition :: (a -> Bool) -> [a] -> ([a], [a])
-(define partition* 
-  (let ((select (lambda (p) 
+(define partition*
+  (let ((select (lambda (p)
                   (lambda (x tf)
                     (let ((t (fst tf))
                           (f (snd tf)))
-                      (if (p x) 
+                      (if (p x)
                           (tuple2 (cons x t) f)
                           (tuple2 t (cons x f))))))))
     (lambda (p xs)
@@ -383,7 +380,7 @@
 (define reverse
   (lambda (l)
     (foldl (flip cons) nil l)))
-        
+
 ;; scanl :: (a -> b -> a) -> a -> [b] -> [a]
 (define scanl
   (lambda (f q l)
@@ -435,25 +432,25 @@
 (define mergesort*
   (lambda (f l)
     (cond ((null? l) nil)
-	  ((null? (tail l)) (head l))
-	  (else (mergesort* f (merge-pairs f l))))))
+          ((null? (tail l)) (head l))
+          (else (mergesort* f (merge-pairs f l))))))
 
 ;; merge_pairs :: (a -> a -> Ordering) -> [[a]] -> [[a]]
-(define merge-pairs 
+(define merge-pairs
   (lambda (f l)
     (cond ((null? l) nil)
-	  ((null? (tail l)) l)
-	  (else (cons (merge f (head l) (head (tail l)))
-		      (merge-pairs f (tail (tail l))))))))
+          ((null? (tail l)) l)
+          (else (cons (merge f (head l) (head (tail l)))
+                      (merge-pairs f (tail (tail l))))))))
 
 ;; merge :: (a -> a -> Ordering) -> [a] -> [a] -> [a]
-(define merge 
+(define merge
   (lambda (f l r)
     (cond ((null? l) r)
-	  ((null? r) l)
-	  (else (if (equal? (f (head l) (head r)) 'gt)
-		    (cons (head r) (merge f l (tail r)))
-		    (cons (head l) (merge f (tail l) r)))))))
+          ((null? r) l)
+          (else (if (equal? (f (head l) (head r)) 'gt)
+                    (cons (head r) (merge f l (tail r)))
+                    (cons (head l) (merge f (tail l) r)))))))
 
 ;; span :: (a -> Bool) -> [a] -> ([a],[a])
 (define span
@@ -509,11 +506,11 @@
                          (x (head e))
                          (xs (tail e))
                          (xss (tail l)))
-                    (cons (cons x 
-				(filter (compose not null?) 
-					(map1 (protect head) xss)))
-                          (transpose (cons xs 
-					   (map1 (protect tail) xss))))))))))
+                    (cons (cons x
+                                (filter (compose not null?)
+                                        (map1 (protect head) xss)))
+                          (transpose (cons xs
+                                           (map1 (protect tail) xss))))))))))
 
 ;; unfoldr :: (b -> Maybe (a, b)) -> b -> [a]
 (define unfoldr

@@ -1,6 +1,6 @@
 ;; data Ordering = LT | EQ | GT
 
-;; compare :: (Ord a) => a -> a -> Ordering 
+;; compare :: (Ord a) => a -> a -> Ordering
 (define compare
   (lambda (x y)
     (cond ((> x y) 'gt)

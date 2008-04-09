@@ -1,11 +1,12 @@
 ;; replicateM :: (Monad m) => Int -> m a -> m [a]
 (define-syntax replicate-m
   (syntax-rules ()
-    ((_ i x) 
+    ((_ i x)
      (replicate-m* i (lambda () x)))))
 
+;; int -> (() -> a) -> [a]
 (define replicate-m*
   (lambda (i x)
     (if (<= i 0)
-	nil
-	(cons (x) (replicate-m* (- i 1) x)))))
+        nil
+        (cons (x) (replicate-m* (- i 1) x)))))
