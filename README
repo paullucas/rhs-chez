@@ -54,6 +54,7 @@ foldl               foldl               fold-left
 foldl1              foldl1
 foldr               foldr               fold-right
 foldr1              foldr1
+groupBy             group-by
 head                head                car
 init                init
 insert              insert
