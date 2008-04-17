@@ -1,5 +1,5 @@
 (import (rnrs)
-        (rhs util util))
+        (mk-r6rs))
 
 (define rhs-libraries
   (map
@@ -49,12 +49,12 @@
     null?
     reverse))
 
-(mk-r5rs rhs-libraries
-	 "../r5rs/rhs.scm")
+(define r6rs-dir
+  (list-ref (command-line) 1))
 
-(mk-r6rs '(rhs r6rs rhs)
+(mk-r6rs '(rhs)
 	 rhs-libraries
-	 "../r6rs/rhs.sls"
+	 (string-append r6rs-dir "/rhs.sls")
 	 `((only (rnrs) 
 		 ,@rhs-requires))
 	 rhs-private
