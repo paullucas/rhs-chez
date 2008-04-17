@@ -155,6 +155,15 @@
         (head l)
         (f (head l) (foldr1 f (tail l))))))
 
+;; groupBy :: (a -> a -> Bool) -> [a] -> [[a]]
+(define group-by
+  (lambda (f l)
+    (if (null? l)
+        (list)
+        (let* ((x (car l))
+               (yz (span (lambda (e) (f e x)) (cdr l))))
+          (cons (cons x (fst yz)) (group-by f (snd yz)))))))
+
 ;; head :: [a] -> a
 (define head car)
 
