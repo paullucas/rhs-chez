@@ -548,11 +548,6 @@
   (lambda (a b)
     (zip-with tuple2 a b)))
 
-;; zip2 :: [a] -> [b] -> [c] -> [(a, b, c)]
-(define zip3
-  (lambda (a b c)
-    (zip-with tuple3 a b c)))
-
 ;; zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 (define zip-with
   (lambda (f a b)

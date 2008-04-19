@@ -16,9 +16,11 @@
 
 ;; bindings required to compile rhs
 (define rhs-requires
-  (quote 
-   (quote 
-    define define-syntax syntax-rules
+  (quote
+   (quote
+    define
+    define-record-type fields
+    define-syntax syntax-rules
     lambda
     let let* letrec
     if cond else
@@ -27,17 +29,14 @@
     = + - * /
     even? odd?
     > < >= <=
-    vector vector-ref
     error
     )))
 
 ;; bindings rhs introduces but ought not to export
 (define rhs-private
   (quote
-   (mergesort
-    mergesort*
-    merge-pairs
-    merge)))
+   (duple make-duple duple-p duple-q
+    mergesort mergesort* merge-pairs merge)))
 
 ;; equalities with the (rnrs) library
 (define rnrs-equalities
@@ -55,7 +54,7 @@
 (mk-r6rs '(rhs)
 	 rhs-libraries
 	 (string-append r6rs-dir "/rhs.sls")
-	 `((only (rnrs) 
+	 `((only (rnrs)
 		 ,@rhs-requires))
 	 rhs-private
 	 rnrs-equalities)

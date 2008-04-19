@@ -4,34 +4,23 @@
     (lambda (x y)
       (f (tuple2 x y)))))
 
+(define-record-type duple
+  (fields p q))
+
 ;; fst :: (a, b) -> a
 (define fst
-  (lambda (v)
-    (vector-ref v 0)))
+  duple-p)
 
 ;; snd :: (a, b) -> b
 (define snd
-  (lambda (v)
-    (vector-ref v 1)))
-
-;; tuple1 :: a -> (a)
-(define tuple1
-  (lambda (x)
-    (vector x)))
+  duple-q)
 
 ;; tuple2 :: a -> b -> (a, b)
 (define tuple2
-  (lambda (x y)
-    (vector x y)))
-
-;; tuple3 :: a -> b -> c -> (a, b, c)
-(define tuple3
-  (lambda (x y z)
-    (vector x y z)))
+  make-duple)
 
 ;; uncurry :: (a -> b -> c) -> (a, b) -> c
 (define uncurry
   (lambda (f)
     (lambda (xy)
       (f (fst xy) (snd xy)))))
-
