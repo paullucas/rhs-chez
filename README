@@ -127,7 +127,6 @@ curry               curry
 fst                 fst
 snd                 snd
 (,)                 tuple2
-                    tuple[1,3]
 uncurry             uncurry
 
 ------------------------------------------------------------
