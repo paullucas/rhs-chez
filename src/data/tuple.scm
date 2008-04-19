@@ -15,7 +15,7 @@
 (define snd
   duple-q)
 
-;; tuple2 :: a -> b -> (a, b)
+;; (,) :: a -> b -> (a, b)
 (define tuple2
   make-duple)
 
