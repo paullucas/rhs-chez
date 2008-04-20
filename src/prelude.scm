@@ -1,9 +1,13 @@
 ;; enumFromThenTo :: a -> a -> a -> [a]
 (define enum-from-then-to
-  (lambda (i j k)
-    (cond ((= i k) (list1 k))
-          ((> i k) nil)
-          (else (cons i (enum-from-then-to j (+ j (- j i)) k))))))
+  (letrec ((efdt
+            (lambda (f i x k)
+              (cond ((= i k) (list1 k))
+                    ((f i k) nil)
+                    (else (cons i (efdt f (+ i x) x k)))))))
+    (lambda (i j k)
+      (let ((x (- j i)))
+        (efdt (if (> x 0) > <) i x k)))))
 
 ;; enumFromTo :: a -> a -> [a]
 (define enum-from-to
