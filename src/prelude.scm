@@ -23,6 +23,13 @@
   (lambda (x)
     (- x 1)))
 
+;; signum :: Num a => a -> a
+(define signum
+  (lambda (x)
+    (cond ((> x 0) 1)
+          ((< x 0) -1)
+          (else 0))))
+
 ;; succ :: a -> a
 (define succ
   (lambda (x)

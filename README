@@ -138,6 +138,7 @@ error                                   error
 even                even                even?
 odd                 odd                 odd?
 pred                pred
+signum              signum
 succ                succ
 undefined           undefined
 
