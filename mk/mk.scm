@@ -6,13 +6,13 @@
    (lambda (x)
      (string-append "../src/" x))
    (list "prelude.scm"
-	 "control/monad.scm"
-	 "data/bool.scm"
-	 "data/function.scm"
-	 "data/list.scm"
-	 "data/ord.scm"
-	 "data/tree.scm"
-	 "data/tuple.scm")))
+         "control/monad.scm"
+         "data/bool.scm"
+         "data/function.scm"
+         "data/list.scm"
+         "data/ord.scm"
+         "data/tree.scm"
+         "data/tuple.scm")))
 
 ;; bindings required to compile rhs
 (define rhs-requires
@@ -52,11 +52,11 @@
   (list-ref (command-line) 1))
 
 (mk-r6rs '(rhs)
-	 rhs-libraries
-	 (string-append r6rs-dir "/rhs.sls")
-	 `((only (rnrs)
-		 ,@rhs-requires))
-	 rhs-private
-	 rnrs-equalities)
+         rhs-libraries
+         (string-append r6rs-dir "/rhs.sls")
+         `((only (rnrs)
+                 ,@rhs-requires))
+         rhs-private
+         rnrs-equalities)
 
 (exit)
