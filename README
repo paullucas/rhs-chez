@@ -37,7 +37,7 @@ id                  id
 all                 all
 and                 all-true
 any                 any-true
-(++)                append2            append
+(++)                append2             append
 break               break
 concat              concat
 concatMap           concat-map
