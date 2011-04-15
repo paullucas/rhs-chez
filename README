@@ -1,6 +1,6 @@
 rhs - relevant haskell libraries in scheme
 
-an r6rs implementation of parts of the haskell 
+an r6rs implementation of parts of the haskell
 hierarchical libraries.
 
 ------------------------------------------------------------
@@ -143,5 +143,5 @@ succ                succ
 undefined           undefined
 
 ------------------------------------------------------------
-(c) rohan drape, 2008
-    gpl.2, see http://www.gnu.org/copyleft
+(c) rohan drape, 2008-2011
+    gpl, see http://www.gnu.org/copyleft
