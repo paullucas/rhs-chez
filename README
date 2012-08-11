@@ -1,39 +1,32 @@
-rhs - relevant haskell libraries in scheme
+rhs
+---
 
-an r6rs implementation of parts of the haskell
+relevant haskell libraries in scheme
+
+an [r6rs][r6rs] implementation of parts of the [haskell][hs]
 hierarchical libraries.
 
-------------------------------------------------------------
-haskell             rhs                 rnrs
-------------------------------------------------------------
+[r6rs]: http://r6rs.org/
+[hs]: http://haskell.org/
 
-------------------------------------------------------------
-* control.monad
-------------------------------------------------------------
+haskell             rhs                 rnrs
+------------------- ------------------- --------------------
+[Control.Monad][cm]
 replicateM          replicate-m
                     replicate-m*
-
-------------------------------------------------------------
-* data.bool
-------------------------------------------------------------
+[Data.Bool][db]
 (&&)                and2                and
                     and3
 (||)                or2                 or
                     or3
 otherwise           otherwise
 not                 not                 not
-
-------------------------------------------------------------
-* data.function
-------------------------------------------------------------
+[Data.Function][df]
 (.)                 compose             compose
 const               const
 flip                flip
 id                  id
-
-------------------------------------------------------------
-* data.list
-------------------------------------------------------------
+[Data.List][dl]
 all                 all
 and                 all-true
 any                 any-true
@@ -105,33 +98,21 @@ zip                 zip
 zip3                zip3
 zipWith             zip-with            map
 zipWith3            zip-with3           map
-
-------------------------------------------------------------
-* data.ord
-------------------------------------------------------------
+[Data.Ord][do]
 LT, EQ, GT          'lt, 'eq, 'gt
 compare             compare
 max                 max2                max
 min                 min2                min
-
-------------------------------------------------------------
-* data.tree
-------------------------------------------------------------
+[Data.Tree][dt]
 flatten             flatten
 levels              levels
-
-------------------------------------------------------------
-* data.tuple
-------------------------------------------------------------
+[Data.Tuple][du]
 curry               curry
 fst                 fst
 snd                 snd
 (,)                 tuple2
 uncurry             uncurry
-
-------------------------------------------------------------
-* prelude
-------------------------------------------------------------
+[Prelude][p]
 enumFromThenTo      enum-from-then-to
 enumFromTo          enum-from-to
 error                                   error
@@ -142,6 +123,16 @@ signum              signum
 succ                succ
 undefined           undefined
 
-------------------------------------------------------------
-(c) rohan drape, 2008-2012
-    gpl, see http://www.gnu.org/copyleft
+[cm]: http://hackage.haskell.org/packages/archive/base/latest/doc/html/Control-Monad.html
+[db]: http://hackage.haskell.org/packages/archive/base/latest/doc/html/Data-Bool.html
+[df]: http://hackage.haskell.org/packages/archive/base/latest/doc/html/Data-Function.html
+[dl]: http://hackage.haskell.org/packages/archive/base/latest/doc/html/Data-List.html
+[do]: http://hackage.haskell.org/packages/archive/base/latest/doc/html/Data-Ord.html
+[dt]: http://hackage.haskell.org/packages/archive/containers/latest/doc/html/Data-Tree.html
+[du]: http://hackage.haskell.org/packages/archive/base/latest/doc/html/Data-Tuple.html
+[p]: http://hackage.haskell.org/packages/archive/base/latest/doc/html/Prelude.html
+
+© [rohan drape][rd], 2008-2012, [gpl][gpl].
+
+[rd]:  http://rd.slavepianos.org/
+[gpl]: http://gnu.org/copyleft/
