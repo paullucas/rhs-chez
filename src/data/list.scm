@@ -223,6 +223,17 @@
   (lambda (p q)
     (is-prefix-of (reverse p) (reverse q))))
 
+;; iterate :: (a -> a) -> a -> [a]
+;;
+;; the scheme variant takes a length argument, scheme lists are not lazy.
+;;
+;; (eq? (iterate 8 (lambda (n) (* n 2)) 1) 256)
+(define iterate
+  (lambda (n f z)
+    (if (eq? n 0)
+        z
+        (iterate (- n 1) f (f z)))))
+
 ;; last :: [a] -> a
 (define last
   (lambda (l)
