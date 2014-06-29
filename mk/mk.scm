@@ -48,13 +48,23 @@
     null?
     reverse))
 
-(define r6rs-dir
-  (list-ref (command-line) 1))
+(define r6rs-dir (string-append (list-ref (command-line) 1) "/r6rs"))
 
+(define r7rs-dir (string-append (list-ref (command-line) 1) "/r7rs"))
+
+;; r7rs records are as (srfi :9)...
 (mk-r6rs '(rhs)
          rhs-libraries
          (string-append r6rs-dir "/rhs.sls")
          `((only (rnrs)
+                 ,@rhs-requires))
+         rhs-private
+         rnrs-equalities)
+
+(mk-r7rs '(rhs)
+         rhs-libraries
+         (string-append r7rs-dir "/rhs.sld")
+         `((only (scheme base)
                  ,@rhs-requires))
          rhs-private
          rnrs-equalities)

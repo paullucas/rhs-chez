@@ -1,9 +1,10 @@
 prefix=$(HOME)/opt
-R6RS=$(prefix)/lib/r6rs
+RNRS=$(prefix)/lib
 
 all:
 	make clean
-	ikarus --r6rs-script mk.scm $(R6RS)
+	ikarus --r6rs-script mk.scm $(RNRS)
 
 clean:
-	rm -f $(R6RS)/rhs.sls
+	rm -f $(RNRS)/r?rs/rhs.sl?
+

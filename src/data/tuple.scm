@@ -7,6 +7,12 @@
 (define-record-type duple
   (fields p q))
 
+;; (define-record-type duple
+;;   (make-duple p q)
+;;   duple?
+;;   (p duple-p)
+;;   (q duple-q))
+
 ;; fst :: (a, b) -> a
 (define fst
   duple-p)
