@@ -19,7 +19,7 @@
   (quote
    (quote
     define
-    define-record-type fields
+    define-record-type fields ;; srfi 9
     define-syntax syntax-rules
     lambda
     let let* letrec
@@ -52,20 +52,18 @@
 
 (define r7rs-dir (string-append (list-ref (command-line) 1) "/r7rs"))
 
-;; r7rs records are as (srfi :9)...
 (mk-r6rs '(rhs)
          rhs-libraries
          (string-append r6rs-dir "/rhs.sls")
-         `((only (rnrs)
-                 ,@rhs-requires))
+         `((only (rnrs) ,@rhs-requires)) ;; (srfi :9)
          rhs-private
          rnrs-equalities)
 
+;; r7rs records are as (srfi 9) not r6rs
 (mk-r7rs '(rhs)
          rhs-libraries
          (string-append r7rs-dir "/rhs.sld")
-         `((only (scheme base)
-                 ,@rhs-requires))
+         `((only (scheme base) ,@rhs-requires)) ;; (srfi 9)
          rhs-private
          rnrs-equalities)
 
