@@ -27,6 +27,7 @@
     cons car cdr pair? list
     equal?
     = + - * /
+    and or
     even? odd?
     > < >= <=
     error
@@ -35,15 +36,17 @@
 ;; bindings rhs introduces but ought not to export
 (define rhs-private
   (quote
-   (duple make-duple duple-p duple-q
-    mergesort mergesort* merge-pairs merge)))
+   (mergesort mergesort* merge-pairs merge)))
 
 ;; equalities with the (rnrs) library
 (define rnrs-equalities
-  '(filter
+  '(append
+    filter
     find
     length
     list-ref
+    map
+    min max
     not
     null?
     reverse))

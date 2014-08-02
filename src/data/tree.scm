@@ -1,11 +1,13 @@
+(define flatten*
+  (lambda (t r)
+    (cond ((null? t) r)
+          ((pair? t) (flatten* (head t) (flatten* (tail t) r)))
+          (else (cons t r)))))
+
 ;; Tree a -> [a]
 (define flatten
-  (letrec ((f (lambda (t r)
-		(cond ((null? t) r)
-		      ((pair? t) (f (head t) (f (tail t) r)))
-		      (else (cons t r))))))
-    (lambda (t)
-      (f t nil))))
+  (lambda (t)
+    (flatten* t nil)))
 
 ;; Tree a -> [[a]]
 (define levels
@@ -13,4 +15,4 @@
     (if (null? t)
 	nil
 	(let ((lr (partition* (compose not pair?) t)))
-	  (cons (fst lr) (levels (concat (snd lr))))))))
+	  (cons (car lr) (levels (concat (cdr lr))))))))

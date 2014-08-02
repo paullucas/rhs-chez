@@ -20,3 +20,9 @@
 (define id
   (lambda (x)
     x))
+
+;; on :: (b -> b -> c) -> (a -> b) -> a -> a -> c
+(define on
+  (lambda (j f)
+    (lambda (x y)
+      (j (f x) (f y)))))
