@@ -7,7 +7,9 @@
      (string-append "../src/" x))
    (list "prelude.scm"
          "control/monad.scm"
+         "control/monad.syntax.scm"
          "data/bool.scm"
+         "data/bool.syntax.scm"
          "data/function.scm"
          "data/list.scm"
          "data/ord.scm"

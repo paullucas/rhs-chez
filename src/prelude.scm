@@ -22,9 +22,7 @@
 ;; (define odd odd?)
 
 ;; pred :: a -> a
-(define pred
-  (lambda (x)
-    (- x 1)))
+(define pred (lambda (x) (- x 1)))
 
 ;; signum :: Num a => a -> a
 (define signum
@@ -34,11 +32,4 @@
           (else 0))))
 
 ;; succ :: a -> a
-(define succ
-  (lambda (x)
-    (+ x 1)))
-
-;; undefined :: a
-(define undefined
-  (lambda ()
-    (error "undefined" "undefined")))
+(define succ (lambda (x) (+ x 1)))

@@ -1,3 +1,4 @@
+;; Tree a -> [a] -> [a]
 (define flatten*
   (lambda (t r)
     (cond ((null? t) r)
@@ -5,9 +6,7 @@
           (else (cons t r)))))
 
 ;; Tree a -> [a]
-(define flatten
-  (lambda (t)
-    (flatten* t nil)))
+(define flatten (lambda (t) (flatten* t nil)))
 
 ;; Tree a -> [[a]]
 (define levels

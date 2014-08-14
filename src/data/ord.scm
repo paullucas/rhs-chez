@@ -8,11 +8,7 @@
           (else 'eq))))
 
 ;; max :: a -> a -> a
-(define max
-  (lambda (x y)
-    (if (> x y) x y)))
+(define max (lambda (x y) (if (> x y) x y)))
 
 ;; min :: a -> a -> a
-(define min
-  (lambda (x y)
-    (if (< x y) x y)))
+(define min (lambda (x y) (if (< x y) x y)))

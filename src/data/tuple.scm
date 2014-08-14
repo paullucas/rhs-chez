@@ -22,5 +22,5 @@
 ;; uncurry :: (a -> b -> c) -> (a, b) -> c
 (define uncurry
   (lambda (f)
-    (lambda (xy)
-      (f (car xy) (cdr xy)))))
+    (lambda (c)
+      (f (car c) (cdr c)))))

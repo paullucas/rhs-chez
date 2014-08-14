@@ -3,11 +3,12 @@ rhs
 
 relevant haskell libraries in scheme
 
-an [r6rs][r6rs] implementation of parts of the [haskell][hs]
+a [scheme][scheme] implementation of parts of the [haskell][haskell]
 hierarchical libraries.
 
+[scheme]: http://library.readscheme.org/standards.html
 [r6rs]: http://r6rs.org/
-[hs]: http://haskell.org/
+[haskell]: http://haskell.org/
 
 haskell             rhs                 rnrs
 ------------------- ------------------- --------------------
@@ -26,7 +27,7 @@ not                 not                 not
 const               const
 flip                flip
 id                  id
-[Data.List][dl]
+[Data.List][dl]     [list.scm][l.scm]
 all                 all
 and                 all-true
 any                 any-true
@@ -112,7 +113,7 @@ fst                 fst
 snd                 snd
 (,)                 tuple2
 uncurry             uncurry
-[Prelude][p]
+[Prelude][p]        [prelude.scm][p.scm]
 enumFromThenTo      enum-from-then-to
 enumFromTo          enum-from-to
 error                                   error
@@ -121,7 +122,6 @@ odd                 odd                 odd?
 pred                pred
 signum              signum
 succ                succ
-undefined           undefined
 
 [cm]: http://hackage.haskell.org/packages/archive/base/latest/doc/html/Control-Monad.html
 [db]: http://hackage.haskell.org/packages/archive/base/latest/doc/html/Data-Bool.html
@@ -132,7 +132,10 @@ undefined           undefined
 [du]: http://hackage.haskell.org/packages/archive/base/latest/doc/html/Data-Tuple.html
 [p]: http://hackage.haskell.org/packages/archive/base/latest/doc/html/Prelude.html
 
-© [rohan drape][rd], 2008-2012, [gpl][gpl].
+[l.scm]: ?t=rhs&e=src/data/list.scm
+[p.scm]: ?t=rhs&e=src/prelude.scm
+
+© [rohan drape][rd], 2008-2014, [gpl][gpl].
 
 [rd]:  http://rd.slavepianos.org/
 [gpl]: http://gnu.org/copyleft/
