@@ -135,7 +135,7 @@ succ                succ
 [l.scm]: ?t=rhs&e=src/data/list.scm
 [p.scm]: ?t=rhs&e=src/prelude.scm
 
-© [rohan drape][rd], 2008-2014, [gpl][gpl].
+© [rohan drape][rd], 2008-2016, [gpl][gpl].
 
 [rd]:  http://rd.slavepianos.org/
 [gpl]: http://gnu.org/copyleft/

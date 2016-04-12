@@ -1,3 +1,8 @@
+;; (negate 3)
+(define negate
+  (lambda (n)
+    (- n)))
+
 (define enum-from-difference-to
   (lambda (f i x k)
     (cond ((= i k) (list1 k))
