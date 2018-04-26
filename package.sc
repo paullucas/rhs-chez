@@ -1,0 +1,11 @@
+(("name" . "rhs-chez")
+ ("version" . "0.1.0")
+ ("description" . "Chez port of the rhs library")
+ ("keywords")
+ ("author" ("rd--") ("paullucas"))
+ ("private" . #t)
+ ("scripts"
+  ("run" . "scheme --script")
+  ("repl" . "scheme"))
+ ("dependencies")
+ ("devDependencies"))
