@@ -1,4 +1,4 @@
-(("name" . "rhs-chez")
+(("name" . "rhs")
  ("version" . "0.1.0")
  ("description" . "Chez port of the rhs library")
  ("keywords")
